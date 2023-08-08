@@ -5,12 +5,15 @@
 // const inter = Inter({ subsets: ['latin'] })
 import dynamic from 'next/dynamic';
 
-const _Layout = dynamic(() => import('./components/layout'))
+
+const _Layout = dynamic(() => import('./components/layout/_layout'))
+const _Title = dynamic(() => import('./components/layout/_title'))
 
 export default function Home() {
   return (
     <>
-      <_Layout title="Home">
+      <_Title title="Home"/>
+      <_Layout>
         Hello World
       </_Layout>
     </>

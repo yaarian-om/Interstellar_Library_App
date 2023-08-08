@@ -1,25 +1,51 @@
 export default function _Footer(props) {
     const currentYear = new Date().getFullYear();
     return (
-        <footer style={footerStyle}>
-            <div style={contentWrapperStyle}>
-                <div style={columnStyle}>
-                    <h3 style={headingStyle}>Interstellar Library</h3>
-                    <p style={contactInfoStyle}>123 Library Street, Galaxy</p>
-                    <p style={contactInfoStyle}>Phone: 123-456-7890</p>
-                    <p style={contactInfoStyle}>Email: info@interstellarlibrary.com</p>
+        <footer 
+        style={footerStyle}
+        >
+            <div 
+            style={contentWrapperStyle}
+            >
+                <div 
+                style={columnStyle}
+                >
+                    <h3 
+                    style={headingStyle}
+                    >Interstellar Library</h3>
+                    <p 
+                    style={contactInfoStyle}
+                    >123 Library Street, Galaxy</p>
+                    <p 
+                    style={contactInfoStyle}
+                    >Phone: 123-456-7890</p>
+                    <p 
+                    style={contactInfoStyle}
+                    >Email: info@interstellarlibrary.com</p>
                 </div>
-                <div style={columnStyle}>
-                    <h3 style={headingStyle}>Links</h3>
-                    <ul style={linkListStyle}>
+                <div 
+                style={columnStyle}
+                >
+                    <h3 
+                    style={headingStyle}
+                    >Links</h3>
+                    <ul 
+                    style={linkListStyle}
+                    >
                         {/* <li><a style={linkStyle} href="/">Home</a></li>
                         <li><a style={linkStyle} href="/about">About</a></li> */}
-                        <li><a style={linkStyle} href="/contact">Contact</a></li>
-                        <li><a style={linkStyle} href="/services">Services</a></li>
+                        <li><a 
+                        style={linkStyle} 
+                        href="/contact">Contact</a></li>
+                        <li><a 
+                        style={linkStyle} 
+                        href="/services">Services</a></li>
                     </ul>
                 </div>
             </div>
-            <p style={copyrightStyle}>&copy; {currentYear} Interstellar Library</p>
+            <p 
+            style={copyrightStyle}
+            >&copy; {currentYear} Interstellar Library</p>
         </footer>
     );
 }
