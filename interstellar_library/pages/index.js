@@ -5,7 +5,6 @@
 // const inter = Inter({ subsets: ['latin'] })
 import dynamic from 'next/dynamic';
 
-
 const _Layout = dynamic(() => import('./components/layout/_layout'))
 const _Title = dynamic(() => import('./components/layout/_title'))
 
@@ -14,7 +13,9 @@ export default function Home() {
     <>
       <_Title title="Home"/>
       <_Layout>
-        Hello World
+        <h1 className="bg-blue-500 text-white p-4">
+          Hello! Welcome to the Landing Page
+        </h1>
       </_Layout>
     </>
   )
