@@ -39,38 +39,64 @@ const handleSubmit = async(e) => {
       <>
         <_Title title="Login"/>
         <_Layout>
-          {/* Email */}
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="Email"
-              style={{padding: '20px'}}
-              >Email</label>
-              <input 
-                type="email" 
-                id="Email" 
-                value={Email} 
-                onChange={(e) => setEmail(e.target.value)} 
-                placeholder="Enter your mail" 
-              />
 
-              <br/>
-              <br/>
+        <br/>
+        <div className="flex items-center justify-center h-screen">
+            <div className="mockup-phone">
+              <div className="camera"></div> 
+              <div className="display">
+                <div className="artboard artboard-demo phone-1">
 
-              {/* Password */}
-              <label htmlFor="Password"
-              style={{padding: '20px'}}
-              >Password</label>
-              <input 
-                type="password" 
-                id="Password" 
-                value={Password} onChange={(e) => setPassword(e.target.value)} 
-                placeholder="Enter your password" 
-              />
+                  {/* Email */}
+                        <form onSubmit={handleSubmit}>
+                          
 
-              <br/>
-              <br/>
-              <input type='submit' value="Login"/>
-            </form>
+                          {/* Email */}
+                          <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                              <span className="label-text">Email</span>
+                              {/* <span className="label-text-alt">Top Right label</span> */}
+                            </label>
+                            <input type="email" placeholder="Type here" id="Email" value={Email} onChange={(e) => setEmail(e.target.value)} className="input input-bordered w-full max-w-xs" />
+                            <label className="label">
+                              {/* <span className="label-text-alt">Bottom Left label</span> */}
+                              <span className="label-text-alt">Bottom Right label</span>
+                            </label>
+                          </div>
 
+
+                          {/* Password */}
+                          <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                              <span className="label-text">Password</span>
+                              {/* <span className="label-text-alt">Top Right label</span> */}
+                            </label>
+                            <input type="password" placeholder="Type here" id="Password" value={Password} onChange={(e) => setPassword(e.target.value)} className="input input-bordered w-full max-w-xs" />
+                            <label className="label">
+                              {/* <span className="label-text-alt">Bottom Left label</span> */}
+                              <span className="label-text-alt">Bottom Right label</span>
+                            </label>
+                          </div>
+                          
+
+                          <br/>
+                          <br/>
+                          <input class="btn w-64 btn-outline btn-success rounded-full" type='submit' value="Login"/>
+                        </form>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <br/>
+
+
+
+
+
+
+
+          
 
         </_Layout>
       </>
