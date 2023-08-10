@@ -1,24 +1,24 @@
 {
-  "index.js -> ./components/layout/_layout": {
-    "id": "index.js -> ./components/layout/_layout",
+  "seller\\add_books.js -> ../components/layout/_layout": {
+    "id": "seller\\add_books.js -> ../components/layout/_layout",
     "files": [
-      "static/chunks/pages_components_layout__layout_js-_dc570.js"
+      "static/chunks/pages_components_layout__layout_js.js"
     ]
   },
-  "index.js -> ./components/layout/_title": {
-    "id": "index.js -> ./components/layout/_title",
+  "seller\\add_books.js -> ../components/layout/_title": {
+    "id": "seller\\add_books.js -> ../components/layout/_title",
     "files": [
       "static/chunks/pages_components_layout__title_js.js"
     ]
   },
-  "login.js -> ./components/layout/_layout": {
-    "id": "login.js -> ./components/layout/_layout",
+  "seller\\login.js -> ../components/layout/_layout": {
+    "id": "seller\\login.js -> ../components/layout/_layout",
     "files": [
-      "static/chunks/pages_components_layout__layout_js-_dc571.js"
+      "static/chunks/pages_components_layout__layout_js.js"
     ]
   },
-  "login.js -> ./components/layout/_title": {
-    "id": "login.js -> ./components/layout/_title",
+  "seller\\login.js -> ../components/layout/_title": {
+    "id": "seller\\login.js -> ../components/layout/_title",
     "files": [
       "static/chunks/pages_components_layout__title_js.js"
     ]

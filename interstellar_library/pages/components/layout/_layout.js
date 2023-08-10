@@ -1,5 +1,5 @@
-import _Header  from "./header";
-import _Footer  from "./footer";
+import _Header  from "./_header";
+import _Footer  from "./_footer";
 
 
 export default function _Layout({children}) {
