@@ -5,18 +5,18 @@ import axios from 'axios';
 import Image from 'next/image';
 
 // Dynamic Imports
-const _Layout = dynamic(() => import('../components/layout/_layout'))
+const _Layout = dynamic(() => import('../components/layout/seller-layout/seller_layout'))
 const _Title = dynamic(() => import('../components/layout/_title'))
 
 export default function All_Books() {
 
-
+    
 
 
     return(
         <>
             <_Layout>
-                
+                <h1>Welcome to See all books</h1>
             </_Layout>
         </>
     )

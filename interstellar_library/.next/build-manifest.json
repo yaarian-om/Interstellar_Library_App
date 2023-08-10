@@ -27,10 +27,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/seller/add_books.js"
     ],
-    "/seller/login": [
+    "/seller/all_books": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/seller/login.js"
+      "static/chunks/pages/seller/all_books.js"
     ]
   },
   "ampFirstPages": []
