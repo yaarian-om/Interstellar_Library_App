@@ -25,7 +25,7 @@ const handleSubmit = async(e) => {
   if(data.data){
     console.log(data.data)
     router.push({
-      pathname: '/seller/add_books',
+      pathname: '/seller/dashboard',
     })
   }
   console.log(data);
