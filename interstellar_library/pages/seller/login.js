@@ -17,9 +17,7 @@ export default function Login() {
 
 const handleSubmit = async(e) => {
   e.preventDefault();
-  // It will be on the form input
-  // const email = e.target.email.value;
-  // const password = e.target.password.value;
+
 
   const data = await axios.post("http://localhost:3000/seller/login",{Email,Password});
   if(data.data){
