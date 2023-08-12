@@ -22,10 +22,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/seller/dashboard": [
+    "/seller/address": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/seller/dashboard.js"
+      "static/chunks/pages/seller/address.js"
     ],
     "/seller/profile": [
       "static/chunks/webpack.js",
