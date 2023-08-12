@@ -43,21 +43,21 @@ export default function All_Books({ data }) {
             <table className="table">
               <thead className="sticky top-0 z-50">
                 <tr >
-                  <th className="px-8">Book ID</th>
-                  <th className="px-8">Book Title</th>
-                  <th className="px-8">Author</th>
-                  <th className="px-8">ISBN</th>
-                  <th className="px-8">Condition</th>
-                  <th className="px-8">Price(BDT ৳)</th>
-                  <th className="px-8">Action</th>
+                  <th className="px-6">Book ID</th>
+                  <th className="px-6">Book Title</th>
+                  <th className="px-6">Author</th>
+                  <th className="px-6">ISBN</th>
+                  <th className="px-6">Condition</th>
+                  <th className="px-6">Price(BDT ৳)</th>
+                  <th className="px-6">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {data.flatMap((seller) =>
                   seller.books.map((book) => (
                     <tr key={book.Book_ID}>
-                      <td className="px-8">{book.Book_ID}</td>
-                      <td className="px-8">
+                      <td className="px-6">{book.Book_ID}</td>
+                      <td className="px-6">
                         <div className="flex items-center space-x-3">
                           <div className="avatar">
                             <div className="mask mask-squircle w-12 h-12">
@@ -72,10 +72,10 @@ export default function All_Books({ data }) {
                           </div>
                         </div>
                       </td>
-                      <td className="px-8">{book.Author}</td>
-                      <td className="px-8">{book.ISBN}</td>
-                      <td className="px-8">{book.Condition}</td>
-                      <td className="px-8">{book.Price}</td>
+                      <td className="px-6">{book.Author}</td>
+                      <td className="px-6">{book.ISBN}</td>
+                      <td className="px-6">{book.Condition}</td>
+                      <td className="px-6">{book.Price}</td>
                       <td>
                         <button className="btn btn-ghost btn-xs">Edit</button>
                         <button className="btn btn-ghost btn-xs">Delete</button>
@@ -86,13 +86,13 @@ export default function All_Books({ data }) {
               </tbody>
               <tfoot>
                 <tr>
-                  <th className="px-8">Book ID</th>
-                  <th className="px-8">Book Title</th>
-                  <th className="px-8">Author</th>
-                  <th className="px-8">ISBN</th>
-                  <th className="px-8">Condition</th>
-                  <th className="px-8">Price(BDT ৳)</th>
-                  <th className="px-8">Action</th>
+                  <th className="px-6">Book ID</th>
+                  <th className="px-6">Book Title</th>
+                  <th className="px-6">Author</th>
+                  <th className="px-6">ISBN</th>
+                  <th className="px-6">Condition</th>
+                  <th className="px-6">Price(BDT ৳)</th>
+                  <th className="px-6">Action</th>
                 </tr>
               </tfoot>
             </table>

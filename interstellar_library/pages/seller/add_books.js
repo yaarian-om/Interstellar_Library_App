@@ -17,7 +17,7 @@ export default function Add_Books() {
     const [Condition, setCondition] = useState('');
     const [Price, setPrice] = useState('');
     const [Book_Image, setBook_Image] = useState('temp.png');
-    const [Seller_ID, setSeller_ID] = useState(2); // Use Session Here for Seller ID
+    const [Seller_ID, setSeller_ID] = useState(2); //TODO: Use Session Here for Seller ID
 
     const [selectedImage, setSelectedImage] = useState(null); // To store the selected image file
 
