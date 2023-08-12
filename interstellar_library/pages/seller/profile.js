@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 // Dynamic Imports
 const _Layout = dynamic(() => import('../components/layout/seller-layout/seller_layout'))
+const _Profile_Navigation = dynamic(() => import('../components/layout/seller-layout/_profile_Navigation'))
 const _Title = dynamic(() => import('../components/layout/_title'))
 
 
@@ -104,6 +105,9 @@ export default function Profile({ data }) {
     }
   }
 
+
+
+
     return (
       <>
       <_Title title="Profile" />
@@ -182,7 +186,7 @@ export default function Profile({ data }) {
             
                 <div id="image-preview" className="space-y-2">
                   <br/>
-                  <div className="avatar w-24 rounded">
+                  <div className="avatar w-40 rounded">
                     <img src={selectedImage || `/images/seller/${data.Profile_Picture}`} alt="Preview" />
                   </div>
                   <br/>
@@ -209,6 +213,10 @@ export default function Profile({ data }) {
     
             
         </div>
+        {/* Bottom Profile Navigation Here */}
+        <_Profile_Navigation/>
+        
+        
       </_Layout>
     </>
     
