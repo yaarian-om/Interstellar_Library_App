@@ -46,7 +46,13 @@ export default function _NavBar() {
     router.push({
         pathname: '/seller/logout',
     });
-};
+  };
+
+  const sendToProfile = function() {
+    router.push({
+        pathname: '/seller/profile',
+    });
+  };
 
       
     
@@ -126,7 +132,7 @@ export default function _NavBar() {
               </div>
             </label>
             <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-              <li>
+              <li onClick={sendToProfile}>
                 <a className="justify-between">
                   Profile
                   {/* <span className="badge">New</span> */}
