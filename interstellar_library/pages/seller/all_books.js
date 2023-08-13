@@ -8,11 +8,19 @@ const _Title = dynamic(() => import('../components/layout/_title'));
 
 export default function All_Books({ data }) {
   const [bookImages, setBookImages] = useState({});
+  const [selectedBookId, setSelectedBookId] = useState(null); 
 
+  const set_SelectedBookId = (data) => {
+    setSelectedBookId(data);
+  }
+
+  // * Default function that is called automatically when the page loads
   useEffect(() => {
+    // window.location.reload(); // Page Reloads for this line
     fetchBookImages();
   }, []);
 
+  // * Getting Book Image while the Page Loads
   const fetchBookImages = async () => {
     try {
       const imagePromises = data.flatMap((seller) =>
@@ -31,6 +39,23 @@ export default function All_Books({ data }) {
       await Promise.all(imagePromises);
     } catch (error) {
       console.error('Error fetching book images:', error);
+    }
+  };
+
+  //* Delete Function
+  const handleDelete = async () => {
+    try {
+      if (selectedBookId) {
+        // console.warn("Your Selected Book ID for Delete = "+selectedBookId); // Working
+        const res = await axios.delete(`http://localhost:3000/seller/books/delete_books/${selectedBookId}`);
+        console.log("Deleted Or Not? = "+res);
+        // You might want to refresh the book list after deletion
+        // You can call fetchBookImages() again or refetch data here
+        // fetchBookImages();
+        setSelectedBookId(null); // Reset selected book ID
+      }
+    } catch (error) {
+      console.error('Error deleting book:', error);
     }
   };
 
@@ -78,8 +103,9 @@ export default function All_Books({ data }) {
                       <td className="px-6">{book.Price}</td>
                       <td>
                         <button className="btn btn-ghost btn-xs">Edit</button>
-                        <button className="btn btn-ghost btn-xs">Delete</button>
+                        <button onClick={()=>{window.confirm_Delete.showModal();setSelectedBookId(book.Book_ID)}} className="btn btn-ghost btn-xs">Delete</button>
                       </td>
+                    
                     </tr>
                   ))
                 )}
@@ -99,6 +125,20 @@ export default function All_Books({ data }) {
           </div>
         </div>
       </_Layout>
+
+      { /* You can open the modal using ID.showModal() method */}
+      {/* <button className="btn" >open modal</button> */}
+      <dialog id="confirm_Delete" className="modal">
+        <form method="dialog" className="modal-box">
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            <h3 className="font-bold text-lg">Confirm Delete?</h3>
+            <p className="py-4">Are you sure that you want to delete it?</p>
+            <div className="modal-action">
+              {/* if there is a button in form, it will close the modal */}
+              <a onClick={handleDelete} className="btn">Delete</a>
+            </div>
+        </form>
+      </dialog>
     </>
   );
 }

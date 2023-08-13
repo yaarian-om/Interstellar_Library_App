@@ -22,15 +22,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/seller/address": [
+    "/seller/add_books": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/seller/address.js"
+      "static/chunks/pages/seller/add_books.js"
     ],
-    "/seller/profile": [
+    "/seller/all_books": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/seller/profile.js"
+      "static/chunks/pages/seller/all_books.js"
     ]
   },
   "ampFirstPages": []

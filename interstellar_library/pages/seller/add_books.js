@@ -38,6 +38,10 @@ export default function Add_Books() {
 
         if (fileInput && fileInput.files.length > 0) {
             formData.append('myfile', fileInput.files[0]);
+            const uploadedFileName = formData.get('myfile').name;
+            setBook_Image(uploadedFileName);
+            formData.append('Book_Image', uploadedFileName);
+            console.warn('Uploaded File Name:', uploadedFileName);
         }
             formData.append('Book_ID', Book_ID);
             formData.append('Title', Title);
@@ -45,7 +49,6 @@ export default function Add_Books() {
             formData.append('ISBN', ISBN);
             formData.append('Condition', Condition);
             formData.append('Price', Price);
-            formData.append('Book_Image', Book_Image);
             formData.append('seller', Seller_ID);
 
         // const validateFile = (value) => {
@@ -171,6 +174,20 @@ export default function Add_Books() {
                     className="file-input"
                     id="myfile"
                     onChange={handleImageChange}
+                  />
+                </div>
+
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Price</span>
+                  </label>
+                  <input
+                    type="number"
+                    placeholder="Type here"
+                    id="Price"
+                    value={Price}
+                    onChange={(e) => setPrice(e.target.value)}
+                    className="input input-bordered"
                   />
                 </div>
                 
