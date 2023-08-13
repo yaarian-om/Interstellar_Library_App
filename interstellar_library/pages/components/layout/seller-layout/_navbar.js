@@ -144,15 +144,15 @@ export default function _NavBar() {
               {/* You can open the modal using ID.showModal() method */}
               {/* <button className="btn" >open modal</button> */}
               <dialog id="my_modal_3" className="modal">
-              <form method="dialog" className="modal-box">
-                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                  <h3 className="font-bold text-lg">Wanna get out?</h3>
-                  <p className="py-4">See you later, Seller</p>
-                  <div className="modal-action">
-      {/* if there is a button in form, it will close the modal */}
-      <a onClick={sendToLogout} className="btn">Logout</a>
-    </div>
-              </form>
+                <form method="dialog" className="modal-box">
+                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    <h3 className="font-bold text-lg">Wanna get out?</h3>
+                    <p className="py-4">See you later, Seller</p>
+                    <div className="modal-action">
+                      {/* if there is a button in form, it will close the modal */}
+                      <a onClick={sendToLogout} className="btn">Logout</a>
+                    </div>
+                </form>
               </dialog>
 
 
