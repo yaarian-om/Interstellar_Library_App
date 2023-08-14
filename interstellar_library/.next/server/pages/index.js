@@ -229,6 +229,28 @@ module.exports = require("next/dist/server/utils.js");
 
 /***/ }),
 
+/***/ "./amp-context":
+/*!******************************************************!*\
+  !*** external "next/dist/shared/lib/amp-context.js" ***!
+  \******************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/amp-context.js");
+
+/***/ }),
+
+/***/ "./amp-mode":
+/*!***************************************************!*\
+  !*** external "next/dist/shared/lib/amp-mode.js" ***!
+  \***************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/amp-mode.js");
+
+/***/ }),
+
 /***/ "../shared/lib/constants":
 /*!****************************************************!*\
   !*** external "next/dist/shared/lib/constants.js" ***!
@@ -240,6 +262,28 @@ module.exports = require("next/dist/shared/lib/constants.js");
 
 /***/ }),
 
+/***/ "./get-img-props":
+/*!********************************************************!*\
+  !*** external "next/dist/shared/lib/get-img-props.js" ***!
+  \********************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/get-img-props.js");
+
+/***/ }),
+
+/***/ "./head-manager-context":
+/*!***************************************************************!*\
+  !*** external "next/dist/shared/lib/head-manager-context.js" ***!
+  \***************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/head-manager-context.js");
+
+/***/ }),
+
 /***/ "../shared/lib/html-context":
 /*!*******************************************************!*\
   !*** external "next/dist/shared/lib/html-context.js" ***!
@@ -248,6 +292,28 @@ module.exports = require("next/dist/shared/lib/constants.js");
 
 "use strict";
 module.exports = require("next/dist/shared/lib/html-context.js");
+
+/***/ }),
+
+/***/ "../shared/lib/image-config-context":
+/*!***************************************************************!*\
+  !*** external "next/dist/shared/lib/image-config-context.js" ***!
+  \***************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-config-context.js");
+
+/***/ }),
+
+/***/ "../shared/lib/image-config":
+/*!*******************************************************!*\
+  !*** external "next/dist/shared/lib/image-config.js" ***!
+  \*******************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-config.js");
 
 /***/ }),
 
@@ -270,6 +336,50 @@ module.exports = require("next/dist/shared/lib/is-plain-object.js");
 
 "use strict";
 module.exports = require("next/dist/shared/lib/loadable.js");
+
+/***/ }),
+
+/***/ "./match-remote-pattern":
+/*!***************************************************************!*\
+  !*** external "next/dist/shared/lib/match-remote-pattern.js" ***!
+  \***************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/match-remote-pattern.js");
+
+/***/ }),
+
+/***/ "../shared/lib/router-context":
+/*!*********************************************************!*\
+  !*** external "next/dist/shared/lib/router-context.js" ***!
+  \*********************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/router-context.js");
+
+/***/ }),
+
+/***/ "./side-effect":
+/*!******************************************************!*\
+  !*** external "next/dist/shared/lib/side-effect.js" ***!
+  \******************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/side-effect.js");
+
+/***/ }),
+
+/***/ "./utils/warn-once":
+/*!**********************************************************!*\
+  !*** external "next/dist/shared/lib/utils/warn-once.js" ***!
+  \**********************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/utils/warn-once.js");
 
 /***/ }),
 
@@ -303,6 +413,17 @@ module.exports = require("next/router");
 
 "use strict";
 module.exports = require("react");
+
+/***/ }),
+
+/***/ "react-dom":
+/*!****************************!*\
+  !*** external "react-dom" ***!
+  \****************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("react-dom");
 
 /***/ }),
 

@@ -1,14 +1,19 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 // Dynamic Imports
 const _Layout = dynamic(() => import('../components/layout/seller-layout/seller_layout'));
 const _Title = dynamic(() => import('../components/layout/_title'));
 
 export default function All_Books({ data }) {
+  const router  = useRouter();
+
+
   const [bookImages, setBookImages] = useState({});
   const [selectedBookId, setSelectedBookId] = useState(null); 
+  const [selectedBookIdForEdit, setSelectedBookIdForEdit] = useState(null); 
 
   const set_SelectedBookId = (data) => {
     setSelectedBookId(data);
@@ -53,11 +58,41 @@ export default function All_Books({ data }) {
         // You can call fetchBookImages() again or refetch data here
         // fetchBookImages();
         setSelectedBookId(null); // Reset selected book ID
+        window.location.reload(); // Reload the page
       }
     } catch (error) {
       console.error('Error deleting book:', error);
     }
   };
+
+    //* Edit Function
+    const handleEdit = async () => {
+      try {
+        if (selectedBookId) {
+          // console.warn("Your Selected Book ID for Delete = "+selectedBookId); // Working
+          const res = await axios.get(`http://localhost:3000/seller/books/search_books/${selectedBookId}`);
+          console.log("Deleted Or Not? = "+res);
+          // You might want to refresh the book list after deletion
+          // You can call fetchBookImages() again or refetch data here
+          // fetchBookImages();
+          setSelectedBookId(null); // Reset selected book ID
+        }
+      } catch (error) {
+        console.error('Error deleting book:', error);
+      }
+    };
+
+    const sendToEdit = function(Book_ID) {
+      router.push({
+          pathname: '/seller/book/'+Book_ID,
+      });
+    };
+
+    const ReloadPage = () => {
+      window.location.reload(); // Reload the page
+    };
+
+
 
   return (
     <>
@@ -102,7 +137,7 @@ export default function All_Books({ data }) {
                       <td className="px-6">{book.Condition}</td>
                       <td className="px-6">{book.Price}</td>
                       <td>
-                        <button className="btn btn-ghost btn-xs">Edit</button>
+                        <button onClick={()=>{ sendToEdit(book.Book_ID)}} className="btn btn-ghost btn-xs">Edit</button>
                         <button onClick={()=>{window.confirm_Delete.showModal();setSelectedBookId(book.Book_ID)}} className="btn btn-ghost btn-xs">Delete</button>
                       </td>
                     
