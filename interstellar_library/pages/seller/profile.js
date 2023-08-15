@@ -13,7 +13,7 @@ const _Profile_Navigation = dynamic(() =>
 );
 const _Title = dynamic(() => import("../components/layout/_title"));
 
-export default function Profile({ data }) {
+export default function Profile() {
   const router = useRouter();
 
   // const [sellerData, setSellerData] = useState({
@@ -32,12 +32,48 @@ export default function Profile({ data }) {
   const [Phone, setPhone] = useState("");
   const [Profile_Picture, setProfile_Picture] = useState("");
 
+  const [Seller_Data, setSeller_Data] = useState("");
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageSelected, setIsImageSelected] = useState(false);
 
   useEffect(() => {
     fetchProfileImage();
+    fetchSellerData();
   }, []);
+
+ // * Collect Book Data
+  useEffect(() => {
+    if (Seller_Data !== null) {
+      console.log("Collected Seller Data :", Seller_Data);
+      // setBook_ID(CollectedBookData?.Book_ID);
+      // console.log("Book_ID :", CollectedBookData.Book_ID);
+      // console.log("Title :", CollectedBookData.Title);
+      // console.log("Author :", CollectedBookData.Author);
+      // console.log("ISBN :", CollectedBookData.ISBN);
+      // console.log("Condition :", CollectedBookData.Condition);
+      // console.log("Price :", CollectedBookData.Price);
+      // console.log("Book Image Name :", CollectedBookData.Book_Image);
+      // console.log("Seller_ID :", CollectedBookData.Seller_ID);
+    }
+  }, [Seller_Data]);
+
+
+
+
+  const fetchSellerData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/seller/profile`, {
+        withCredentials: true,
+      });
+      if (response != null || response != undefined) {
+        setSeller_Data(response.data);
+        console.info("Seller Data = " + response);
+      }
+    } catch (error) {
+      console.error("Error fetching Seller Profile:", error);
+    }
+  };
 
   const fetchProfileImage = async () => {
     try {
@@ -45,6 +81,7 @@ export default function Profile({ data }) {
         `http://localhost:3000/seller/profile/profile_image`,
         {
           responseType: "arraybuffer",
+          withCredentials: true,
         }
       );
 
@@ -59,12 +96,12 @@ export default function Profile({ data }) {
   };
 
   // console.warn(sellerData);
-  console.warn("Data = " + data.Seller_ID);
-  console.warn("Data = " + data.Name);
-  console.warn("Data = " + data.Phone);
-  console.warn("Data = " + data.Email);
-  console.warn("Data = " + data.Password);
-  console.warn("Data = " + data.Profile_Picture);
+  // console.warn("Data = " + data.Seller_ID);
+  // console.warn("Data = " + data.Name);
+  // console.warn("Data = " + data.Phone);
+  // console.warn("Data = " + data.Email);
+  // console.warn("Data = " + data.Password);
+  // console.warn("Data = " + data.Profile_Picture);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -81,7 +118,10 @@ export default function Profile({ data }) {
     try {
       const response = await axios.put(
         "localhost:3000/seller/profile/update_profile_info",
-        sellerData
+        sellerData,
+        {
+          withCredentials: true,
+        }
       );
       if (response.data) {
         console.log(response.data);
@@ -105,6 +145,7 @@ export default function Profile({ data }) {
         "localhost:3000/seller/profile/update_profile_info/upload_profile_image",
         formData,
         {
+          withCredentials: true,
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -141,9 +182,9 @@ export default function Profile({ data }) {
                   </label>
                   <input
                     type="text"
-                    placeholder="Type here"
+                    placeholder={Seller_Data.Name}
                     id="Name"
-                    value={data.Name}
+                    value=""
                     onChange={(e) => setName(e.target.value)}
                     className="input input-bordered"
                   />
@@ -156,9 +197,9 @@ export default function Profile({ data }) {
                   </label>
                   <input
                     type="text"
-                    placeholder="Type here"
+                    placeholder={Seller_Data.Phone}
                     id="Phone"
-                    value={data.Phone}
+                    value=""
                     onChange={(e) => setPhone(e.target.value)}
                     className="input input-bordered"
                   />
@@ -168,7 +209,7 @@ export default function Profile({ data }) {
                 <input
                   type="hidden"
                   id="Profile_Picture"
-                  value={data.Profile_Picture}
+                  value={Seller_Data.Profile_Picture}
                 />
 
                 {/* Submit Button */}
@@ -192,7 +233,7 @@ export default function Profile({ data }) {
                     <img
                       src={
                         selectedImage ||
-                        `/images/seller/${data.Profile_Picture}`
+                        `/images/seller/${Seller_Data.Profile_Picture}`
                       }
                       alt="Preview"
                     />
@@ -226,13 +267,15 @@ export default function Profile({ data }) {
   );
 }
 
-export async function getStaticProps() {
-  try {
-    const response = await axios.get("http://localhost:3000/seller/profile");
-    const data = await response.data;
-    return { props: { data } };
-  } catch (error) {
-    console.error("Error fetching seller profile data:", error);
-    return { props: { data: [] } };
-  }
-}
+// export async function getStaticProps() {
+//   try {
+//     const response = await axios.get("http://localhost:3000/seller/profile", {
+//       withCredentials: true,
+//     });
+//     const data = await response.data;
+//     return { props: { data } };
+//   } catch (error) {
+//     console.error("Error fetching seller profile data:", error);
+//     return { props: { data: [] } };
+//   }
+// }
