@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import axios from "axios";
-// import { useSellerContext } from "../contexts/seller/seller_context";
+import { useAuth } from "../utils/authcontext";
 
 // Dynamic Imports
 const _Layout = dynamic(() => import("../components/layout/_layout"));
@@ -10,9 +10,13 @@ const _Title = dynamic(() => import("../components/layout/_title"));
 
 export default function Login() {
   const router = useRouter();
+
+  const { login } = useAuth();
+
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,7 +34,10 @@ export default function Login() {
         }
       );
 
+      
       if (data.data) {
+        
+        login(Email, document.cookie);
         console.log(data.data);
         router.push({
           pathname: "/seller/dashboard",

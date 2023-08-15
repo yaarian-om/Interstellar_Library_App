@@ -77,7 +77,8 @@ export default function View_Single_Book() {
   const fetchBookData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/seller/books/search_books/" + router.query.id
+        "http://localhost:3000/seller/books/search_books/" + router.query.id,
+        { withCredentials: true }
       );
       const data = response.data;
       console.log("Fetched Book Data:", data);

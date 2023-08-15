@@ -2,9 +2,12 @@
 import axios from 'axios';
 import {useRouter} from 'next/router';
 import { useEffect,useState } from 'react';
+import { useAuth } from "../utils/authcontext";
 
 
 export default function  Logout() {
+
+    const { logout } = useAuth();
 
     const router  = useRouter();
   const [userImage, setUserImage] = useState(null);
@@ -12,7 +15,9 @@ export default function  Logout() {
   // When the page loads
   useEffect(() => {
 
-handleSubmit();
+    logout();
+
+// handleSubmit();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -34,11 +39,6 @@ handleSubmit();
 }
 
 
-    const sendToAdd_Books = function() {
-        router.push({
-            pathname: '/seller/add_books',
-        });
-      };
 
     
     
