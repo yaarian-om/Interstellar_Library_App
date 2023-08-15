@@ -2,6 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/seller/login": "pages/seller/login.js",
-  "/seller/book/[id]": "pages/seller/book/[id].js"
+  "/seller/login": "pages/seller/login.js"
 }
