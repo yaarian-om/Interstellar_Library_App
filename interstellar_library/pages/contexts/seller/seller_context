@@ -1,0 +1,61 @@
+import { createContext, useContext, useState } from "react";
+import axios from "axios";
+
+const SellerContext = createContext();
+
+export const seller_authentication_provider = ({ children }) => {
+  const [user, setUser] = useState(null);
+
+  const login_create_session = (email, cookie) => {
+    setUser({ email, cookie });
+  };
+
+  const checkUser = () => {
+    console.log("user:  " + user.email);
+    console.log("user:  " + user.cookie);
+    if (user.email != null && user.cookie != null) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const logout_destroy_session = () => {
+    doSignOut();
+  };
+  async function doSignOut() {
+    try {
+      const response = await axios.post("http://localhost:3000/seller/logout", {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        withCredentials: true,
+      });
+
+      if (response.data.Logout == "Success") {
+        setUser(null);
+        document.cookie = null;
+        router.push({
+          pathname: "/seller/login",
+        });
+      } else {
+        router.push({
+          pathname: "error",
+        });
+      }
+      console.log(response);
+
+      router.push("/seller/login");
+    } catch (error) {
+      console.error("error failed: ", error);
+    }
+  }
+
+  return (
+    <SellerContext.Provider
+      value={{ user, login_create_session, logout_destroy_session, checkUser }}
+    >
+      {children}
+    </SellerContext.Provider>
+  );
+};
+
+export const useSellerContext = () => useContext(SellerContext);

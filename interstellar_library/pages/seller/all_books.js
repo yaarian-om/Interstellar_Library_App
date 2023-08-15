@@ -88,11 +88,6 @@ export default function All_Books({ data }) {
       });
     };
 
-    const ReloadPage = () => {
-      window.location.reload(); // Reload the page
-    };
-
-
 
   return (
     <>

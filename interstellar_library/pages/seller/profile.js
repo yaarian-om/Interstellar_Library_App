@@ -1,18 +1,21 @@
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import { useEffect,useState } from 'react';
-import axios from 'axios';
-import Image from 'next/image';
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Image from "next/image";
 
 // Dynamic Imports
-const _Layout = dynamic(() => import('../components/layout/seller-layout/seller_layout'))
-const _Profile_Navigation = dynamic(() => import('../components/layout/seller-layout/_profile_Navigation'))
-const _Title = dynamic(() => import('../components/layout/_title'))
-
+const _Layout = dynamic(() =>
+  import("../components/layout/seller-layout/seller_layout")
+);
+const _Profile_Navigation = dynamic(() =>
+  import("../components/layout/seller-layout/_profile_Navigation")
+);
+const _Title = dynamic(() => import("../components/layout/_title"));
 
 export default function Profile({ data }) {
   const router = useRouter();
-  
+
   // const [sellerData, setSellerData] = useState({
   //   Seller_ID: 2,
   //   Name: '',
@@ -23,51 +26,52 @@ export default function Profile({ data }) {
   // });
 
   const [Seller_ID, setSeller_ID] = useState(2);
-  const [Name, setName] = useState('');
-  const [Email, setEmail] = useState('');
-  const [Password, setPassword] = useState('');
-  const [Phone, setPhone] = useState('');
-  const [Profile_Picture, setProfile_Picture] = useState('');
+  const [Name, setName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Phone, setPhone] = useState("");
+  const [Profile_Picture, setProfile_Picture] = useState("");
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageSelected, setIsImageSelected] = useState(false);
 
-
-
-  
   useEffect(() => {
     fetchProfileImage();
   }, []);
 
   const fetchProfileImage = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/seller/profile/profile_image`, {
-        responseType: 'arraybuffer',
-      });
+      const response = await axios.get(
+        `http://localhost:3000/seller/profile/profile_image`,
+        {
+          responseType: "arraybuffer",
+        }
+      );
 
-      const imageBlob = new Blob([response.data], { type: response.headers['content-type'] });
+      const imageBlob = new Blob([response.data], {
+        type: response.headers["content-type"],
+      });
       const imageUrl = URL.createObjectURL(imageBlob);
       setSelectedImage(imageUrl);
     } catch (error) {
-      console.error('Error fetching profile image:', error);
+      console.error("Error fetching profile image:", error);
     }
   };
 
-
   // console.warn(sellerData);
-  console.warn("Data = "+ data.Seller_ID);
-  console.warn("Data = "+ data.Name);
-  console.warn("Data = "+ data.Phone);
-  console.warn("Data = "+ data.Email);
-  console.warn("Data = "+ data.Password);
-  console.warn("Data = "+ data.Profile_Picture);
+  console.warn("Data = " + data.Seller_ID);
+  console.warn("Data = " + data.Name);
+  console.warn("Data = " + data.Phone);
+  console.warn("Data = " + data.Email);
+  console.warn("Data = " + data.Password);
+  console.warn("Data = " + data.Profile_Picture);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
       setIsImageSelected(true);
-    }else{
+    } else {
       setIsImageSelected(false);
     }
   };
@@ -75,58 +79,59 @@ export default function Profile({ data }) {
   const handleSubmit_UserData = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put("localhost:3000/seller/profile/update_profile_info", sellerData);
+      const response = await axios.put(
+        "localhost:3000/seller/profile/update_profile_info",
+        sellerData
+      );
       if (response.data) {
         console.log(response.data);
         router.push({
-          pathname: '/seller/profile',
+          pathname: "/seller/profile",
         });
       }
     } catch (error) {
-      console.error('Error updating profile:', error);
+      console.error("Error updating profile:", error);
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     if (selectedImage) {
-      formData.append('myfile', selectedImage);
+      formData.append("myfile", selectedImage);
     }
     try {
-      const response = await axios.put("localhost:3000/seller/profile/update_profile_info/upload_profile_image", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.put(
+        "localhost:3000/seller/profile/update_profile_info/upload_profile_image",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       console.log(response);
     } catch (error) {
-      console.error('Error updating profile image:', error);
+      console.error("Error updating profile image:", error);
     }
-  }
+  };
 
-
-
-
-    return (
-      <>
+  return (
+    <>
       <_Title title="Profile" />
       <_Layout>
         <div className="flex items-center justify-center h-screen">
-          
-    
-            <div className="grid grid-cols-2 gap-4 w-full max-w-screen-lg mx-auto">
-    
+          <div className="grid grid-cols-2 gap-4 w-full max-w-screen-lg mx-auto">
             {/* {data.map(seller => ( */}
             <form onSubmit={handleSubmit_UserData}>
-            {/* Hidden Book_ID */}
-            
-            <input
-              type="hidden"
-              id="Seller_ID"
-              value={Seller_ID}
-              onChange={(e) => setSeller_ID(e.target.value)} // TODO : Use Session here or remove this
-            />
+              {/* Hidden Book_ID */}
+
+              <input
+                type="hidden"
+                id="Seller_ID"
+                value={Seller_ID}
+                onChange={(e) => setSeller_ID(e.target.value)} // TODO : Use Session here or remove this
+              />
               {/* Left Column */}
               <div className="col-span-1 space-y-4">
                 {/* Name */}
@@ -144,7 +149,6 @@ export default function Profile({ data }) {
                   />
                 </div>
 
-    
                 {/* Phone */}
                 <div className="form-control">
                   <label className="label">
@@ -161,11 +165,11 @@ export default function Profile({ data }) {
                 </div>
 
                 {/* Hidden User Image */}
-              <input
-                type="hidden"
-                id="Profile_Picture"
-                value={data.Profile_Picture}
-                 />
+                <input
+                  type="hidden"
+                  id="Profile_Picture"
+                  value={data.Profile_Picture}
+                />
 
                 {/* Submit Button */}
                 <div className="text-center">
@@ -176,20 +180,24 @@ export default function Profile({ data }) {
                   />
                 </div>
               </div>
+            </form>
+            {/* ))} */}
 
-              </form>
-                {/* ))} */}
-    
-              {/* Right Column */}
-              <div className="col-span-1 space-y-4">
+            {/* Right Column */}
+            <div className="col-span-1 space-y-4">
               <form onSubmit={handleSubmit} encType="multipart/form-data">
-            
                 <div id="image-preview" className="space-y-2">
-                  <br/>
+                  <br />
                   <div className="avatar w-40 rounded">
-                    <img src={selectedImage || `/images/seller/${data.Profile_Picture}`} alt="Preview" />
+                    <img
+                      src={
+                        selectedImage ||
+                        `/images/seller/${data.Profile_Picture}`
+                      }
+                      alt="Preview"
+                    />
                   </div>
-                  <br/>
+                  <br />
                   <input
                     type="file"
                     className="file-input"
@@ -197,7 +205,7 @@ export default function Profile({ data }) {
                     onChange={handleImageChange}
                   />
                 </div>
-                
+
                 <div className="text-center">
                   <input
                     className="btn btn-outline btn-success rounded-2xl"
@@ -207,31 +215,24 @@ export default function Profile({ data }) {
                     value="Update Profile Image!"
                   />
                 </div>
-          </form>
-              </div>
+              </form>
             </div>
-    
-            
+          </div>
         </div>
         {/* Bottom Profile Navigation Here */}
-        <_Profile_Navigation/>
-        
-        
+        <_Profile_Navigation />
       </_Layout>
     </>
-    
-    )
-  }
+  );
+}
 
-
-  
 export async function getStaticProps() {
   try {
-    const response = await axios.get('http://localhost:3000/seller/profile');
+    const response = await axios.get("http://localhost:3000/seller/profile");
     const data = await response.data;
     return { props: { data } };
   } catch (error) {
-    console.error('Error fetching seller profile data:', error);
+    console.error("Error fetching seller profile data:", error);
     return { props: { data: [] } };
   }
 }
