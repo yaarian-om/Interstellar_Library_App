@@ -76,6 +76,7 @@ export default function Add_Books() {
                 router.push({
                     pathname: '/seller/add_books',
                 });
+                window.location.reload(); // Reload the page
             } else {
                 router.push({
                     pathname: 'error',
@@ -84,6 +85,8 @@ export default function Add_Books() {
         } catch (error) {
             console.error('Error adding books:', error);
         }
+        // Page Reload here
+        
     }
 
     return (
