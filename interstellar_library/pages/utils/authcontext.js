@@ -5,21 +5,20 @@ import { useRouter } from "next/router";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
   const router = useRouter();
 
   // * Making sure this code is executed on client side
- const [user, setUser] = useState(() => {
-   if (typeof window !== "undefined") {
-     const storedUser = localStorage.getItem("authUser");
-     return storedUser ? JSON.parse(storedUser) : null;
-   }
-   return null;
- });
+  const [user, setUser] = useState(() => {
+    if (typeof window !== "undefined") {
+      const storedUser = localStorage.getItem("authUser");
+      return storedUser ? JSON.parse(storedUser) : null;
+    }
+    return null;
+  });
 
   const login = (email, cookie) => {
     const newUser = { email, cookie };
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       localStorage.setItem("authUser", JSON.stringify(newUser));
     }
     setUser(newUser);
@@ -35,7 +34,6 @@ export const AuthProvider = ({ children }) => {
   };
   async function doSignOut() {
     try {
-      // ! Please Provide the Link here
       const response = await axios.post("http://localhost:3000/seller/logout", {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         withCredentials: true,
@@ -44,8 +42,8 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("authUser");
       setUser(null);
       document.cookie = null;
-      // ! Import and Declare the router first
-      router.push('/seller/login');
+
+      router.push("/seller/login");
     } catch (error) {
       console.error("error failed: ", error);
     }

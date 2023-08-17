@@ -8,7 +8,34 @@ export default function _NavBar() {
 
   const router = useRouter();
   const [userImage, setUserImage] = useState(null);
+  const [session_data, setSession_data] = useState(null);
 
+  // #region [Check Backend Session is Active or NOT]
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/seller/index", {
+          withCredentials: true,
+        });
+        const sessionData = response.data; // Assuming the session data is a string
+
+        // console.info("Session Data =", sessionData);
+
+        if (!sessionData) {
+          router.push("/seller/login");
+        }
+      } catch (error) {
+        console.error("Error checking session:", error);
+      }
+    }, 1000);
+
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(intervalId);
+  }, []);
+
+  // #endregion [Check Backend Session is Active or NOT]
+
+  // #region [Get Seller Image] When the Navbar is Called
   // When the page loads
   useEffect(() => {
     if (user != null) {
@@ -37,6 +64,9 @@ export default function _NavBar() {
     }
   }, []);
 
+  // #endregion [Get Seller Image] When the Navbar is Called
+
+  // #region [Storing New Data to Variable]
   const sendToAdd_Books = function () {
     router.push({
       pathname: "/seller/add_books",
@@ -66,6 +96,7 @@ export default function _NavBar() {
       pathname: "/seller/profile",
     });
   };
+  // #endregion [Storing New Data to Variable]
 
   return (
     <>

@@ -16,7 +16,6 @@ export default function Login() {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -34,9 +33,7 @@ export default function Login() {
         }
       );
 
-      
       if (data.data) {
-        
         login(Email, document.cookie);
         console.log(data.data);
         router.push({

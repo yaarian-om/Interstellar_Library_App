@@ -13,7 +13,7 @@ const _Profile_Navigation = dynamic(() =>
 );
 const _Title = dynamic(() => import("../components/layout/_title"));
 
-export default function Address({ data }) {
+export default function Address() {
   const router = useRouter();
 
   const [Address_ID, setAddress_ID] = useState(0);
@@ -22,47 +22,101 @@ export default function Address({ data }) {
   const [City, setCity] = useState("");
   const [Country, setCountry] = useState("");
   const [ZIP, setZIP] = useState("");
-  const [Seller_ID, setSeller_ID] = useState("");
-  const [Response, setResponse] = useState("");
+  const [Seller_ID, setSeller_ID] = useState(0);
 
-  const fetchData = async () => {
+  const [Seller_Address, setSeller_Address] = useState(null);
+
+  const [isFormComplete, setIsFormComplete] = useState(false);
+
+
+  const fetchSellerAddress = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/seller/profile/address`,
+        "http://localhost:3000/seller/profile/address",
         { withCredentials: true }
       );
-      setResponse(response);
-    } catch (e) {
-      console.error("Error fetching Address Data:", error);
+      if (response.data) {
+        setSeller_Address(response.data[0]); // Update the state with the fetched data
+        console.info("Seller_Address response.data[0] = ", response.data[0]);
+
+      }
+    } catch (error) {
+      console.error("Error fetching Seller Address:", error);
     }
   };
+
+  useEffect(() => setIsFormComplete(Street && Building && City && Country && ZIP), [Street, Building, City, Country, ZIP]);
+
+
   useEffect(() => {
     // Fetch data when the component mounts
-    fetchData();
+    fetchSellerAddress();
   }, []);
 
-  const addressData = data[0]; // Assuming there's only one object in the array
 
-  // console.warn(sellerData);
-  console.warn("Data = " + Response);
-  console.warn("Data = " + addressData.City);
-  console.warn("Data = " + Response.Building);
-  console.warn("Data = " + Response.City);
-  console.warn("Data = " + Response.Country);
-  console.warn("Data = " + Response.ZIP);
-  console.warn("Data = " + Response.Seller_ID);
+
+  // * Collect Seller Data
+  useEffect(() => {
+    if (Seller_Address !== null) {
+      console.log("Collected Seller Data :", Seller_Address);
+      setAddress_ID(Seller_Address.Address_ID);
+      setStreet(Seller_Address.Street);
+      setBuilding(Seller_Address.Building);
+      setCity(Seller_Address.City);
+      setCountry(Seller_Address.Country);
+      setZIP(Seller_Address.ZIP);
+      setSeller_ID(Seller_Address.Seller_ID);
+      console.info("Address id = "+Address_ID)
+      console.info("Street = "+Street)
+      console.info("Building = "+Building)
+      console.info("City = "+City)
+      console.info("Country = "+Country)
+       console.info("ZIP = "+ZIP)
+      console.info("Seller_ID = "+Seller_ID)
+
+
+    }
+  }, [Seller_Address]);
+
+
+
+
+  //#region  [Data Insertion to the variables]
+
+  const set_Street = (e) => {
+    setStreet(e.target.value);
+  };
+  const set_Building = (e) => {
+    setBuilding(e.target.value);
+  };
+  const set_City = (e) => {
+    setCity(e.target.value);
+  };
+  const set_Country = (e) => {
+    setCountry(e.target.value);
+  };
+  const set_ZIP = (e) => {
+    setZIP(e.target.value);
+  };
+
+  //end#region  [Data Insertion to the variables]
+
+
 
   const handleSubmit_UserData = async (e) => {
     e.preventDefault();
-    try {
+    if (isFormComplete) {
+      try {
       const response = await axios.put(
-        "localhost:3000/seller/profile/update_profile_info",
-        Address_ID,
-        Street,
-        Building,
-        City,
-        Country,
-        ZIP
+        "http://localhost:3000/seller/profile/update_profile_info/update_address",
+        {
+          Address_ID:Address_ID,
+          Street:Street,
+          Building:Building,
+          City:City,
+          Country:Country,
+          ZIP:ZIP
+        }
       );
       if (response.data) {
         console.log(response.data);
@@ -71,8 +125,10 @@ export default function Address({ data }) {
         });
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
+        console.error("Error updating Address:", error);
+      }
     }
+    
   };
 
   return (
@@ -89,12 +145,7 @@ export default function Address({ data }) {
               className="grid grid-cols-2 gap-4 w-full max-w-screen-lg mx-auto"
             >
               {/* Before Column Start Data */}
-              <input
-                type="hidden"
-                id="Address_ID"
-                value={addressData.Address_ID}
-                onChange={(e) => setAddress_ID(e.target.value)} // TODO : Use Session here or remove this
-              />
+              <input type="hidden" id="Address_ID" value={Address_ID} />
 
               {/* Left Column */}
               <div id="Left_Column" className="col-span-1 space-y-4">
@@ -106,8 +157,8 @@ export default function Address({ data }) {
                     type="text"
                     placeholder="Type here"
                     id="Street"
-                    value={addressData.Street}
-                    onChange={(e) => setStreet(e.target.value)}
+                    value={Street}
+                    onChange={set_Street}
                     className="input input-bordered"
                   />
                 </div>
@@ -121,8 +172,8 @@ export default function Address({ data }) {
                     type="text"
                     placeholder="Type here"
                     id="Building"
-                    value={addressData.Building}
-                    onChange={(e) => setBuilding(e.target.value)}
+                    value={Building}
+                    onChange={set_Building}
                     className="input input-bordered"
                   />
                 </div>
@@ -136,8 +187,8 @@ export default function Address({ data }) {
                     type="text"
                     placeholder="Type here"
                     id="City"
-                    value={addressData.City}
-                    onChange={(e) => setCity(e.target.value)}
+                    value={City}
+                    onChange={set_City}
                     className="input input-bordered"
                   />
                 </div>
@@ -153,8 +204,8 @@ export default function Address({ data }) {
                     type="text"
                     placeholder="Type here"
                     id="Country"
-                    value={addressData.Country}
-                    onChange={(e) => setCountry(e.target.value)}
+                    value={Country}
+                    onChange={set_Country}
                     className="input input-bordered"
                   />
                 </div>
@@ -165,11 +216,11 @@ export default function Address({ data }) {
                     <span className="label-text">ZIP</span>
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     placeholder="Type here"
                     id="ZIP"
-                    value={addressData.ZIP}
-                    onChange={(e) => setZIP(e.target.value)}
+                    value={ZIP}
+                    onChange={set_ZIP}
                     className="input input-bordered"
                   />
                 </div>
@@ -177,6 +228,7 @@ export default function Address({ data }) {
                   <input
                     className="btn btn-outline btn-success rounded-2xl"
                     type="submit"
+                    disabled={!isFormComplete} // Disable the button when the form is incomplete
                     value="Update Address !"
                   />
                 </div>
@@ -194,16 +246,3 @@ export default function Address({ data }) {
   );
 }
 
-export async function getStaticProps() {
-  try {
-    const response = await axios.get(
-      "http://localhost:3000/seller/profile/address",
-      { withCredentials: true }
-    );
-    const data = await response.data;
-    return { props: { data } };
-  } catch (error) {
-    console.error("Error fetching seller profile data:", error);
-    return { props: { data: [] } };
-  }
-}

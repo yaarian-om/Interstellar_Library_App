@@ -25,28 +25,41 @@ export default function Profile() {
   //   Profile_Picture: 'temp.svg',
   // });
 
-  const [Seller_ID, setSeller_ID] = useState(2);
+  const [Seller_ID, setSeller_ID] = useState(0);
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
+  const [Password, setPassword] = useState("passW0rd$");
   const [Phone, setPhone] = useState("");
   const [Profile_Picture, setProfile_Picture] = useState("");
 
   const [Seller_Data, setSeller_Data] = useState("");
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const [isImageSelected, setIsImageSelected] = useState(false);
+
+  const [isFormComplete, setIsFormComplete] = useState(false);
 
   useEffect(() => {
     fetchProfileImage();
     fetchSellerData();
   }, []);
 
- // * Collect Book Data
+  useEffect(() => setIsFormComplete(Name && Phone), [Name, Phone]);
+
+ // * Collect Seller Data
   useEffect(() => {
     if (Seller_Data !== null) {
       console.log("Collected Seller Data :", Seller_Data);
-      // setBook_ID(CollectedBookData?.Book_ID);
+      setSeller_ID(Seller_Data.Seller_ID);
+      setName(Seller_Data.Name);
+      setEmail(Seller_Data.Email);
+      // setPassword(Seller_Data.Password);
+      setPhone(Seller_Data.Phone);
+      setProfile_Picture(Seller_Data.Profile_Picture);
+
+
+
       // console.log("Book_ID :", CollectedBookData.Book_ID);
       // console.log("Title :", CollectedBookData.Title);
       // console.log("Author :", CollectedBookData.Author);
@@ -57,6 +70,18 @@ export default function Profile() {
       // console.log("Seller_ID :", CollectedBookData.Seller_ID);
     }
   }, [Seller_Data]);
+
+
+
+  // #region  [Data Insertion to the variables]
+
+  const set_Name = (e)=> {
+    setName(e.target.value);
+  }
+  const set_Phone = (e) => {
+    setPhone(e.target.value);
+  };
+  // #endregion  [Data Insertion to the variables]
 
 
 
@@ -95,17 +120,10 @@ export default function Profile() {
     }
   };
 
-  // console.warn(sellerData);
-  // console.warn("Data = " + data.Seller_ID);
-  // console.warn("Data = " + data.Name);
-  // console.warn("Data = " + data.Phone);
-  // console.warn("Data = " + data.Email);
-  // console.warn("Data = " + data.Password);
-  // console.warn("Data = " + data.Profile_Picture);
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      setImageFile(file);
       setSelectedImage(URL.createObjectURL(file));
       setIsImageSelected(true);
     } else {
@@ -117,32 +135,44 @@ export default function Profile() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        "localhost:3000/seller/profile/update_profile_info",
-        sellerData,
+        "http://localhost:3000/seller/profile/update_profile_info",
+        {
+          Seller_ID: Seller_ID,
+          Name: Name,
+          Email: Email,
+          Password: Password,
+          Phone: Phone,
+          Profile_Picture: Profile_Picture,
+        },
         {
           withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
       if (response.data) {
-        console.log(response.data);
-        router.push({
-          pathname: "/seller/profile",
-        });
+        console.log("Profile updated successfully:", response.data);
+        router.push("/seller/profile");
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
+      console.error("Error updating profile :");
+      console.error("Data I have sent :", error.response.data);
+      console.error("Response I Got :", error.response.data.message);
     }
   };
 
+  // [Uploading New Profile Picture]
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     if (selectedImage) {
-      formData.append("myfile", selectedImage);
+      formData.append("myfile", imageFile);
+      console.warn("Image = " + imageFile);
     }
     try {
       const response = await axios.put(
-        "localhost:3000/seller/profile/update_profile_info/upload_profile_image",
+        "http://localhost:3000/seller/profile/update_profile_info/upload_profile_image",
         formData,
         {
           withCredentials: true,
@@ -153,7 +183,9 @@ export default function Profile() {
       );
       console.log(response);
     } catch (error) {
-      console.error("Error updating profile image:", error);
+      console.error("Data I have sent :", error.response.data);
+      console.error("Response Message I Got :", error.response.data.message);
+      console.error("Response Error Called :", error.response.data.error);
     }
   };
 
@@ -171,7 +203,7 @@ export default function Profile() {
                 type="hidden"
                 id="Seller_ID"
                 value={Seller_ID}
-                onChange={(e) => setSeller_ID(e.target.value)} // TODO : Use Session here or remove this
+                // onChange={(e) => setSeller_ID(e.target.value)} // TODO : Use Session here or remove this
               />
               {/* Left Column */}
               <div className="col-span-1 space-y-4">
@@ -182,10 +214,10 @@ export default function Profile() {
                   </label>
                   <input
                     type="text"
-                    placeholder={Seller_Data.Name}
+                    placeholder="Type here"
                     id="Name"
-                    value=""
-                    onChange={(e) => setName(e.target.value)}
+                    value={Name}
+                    onChange={set_Name}
                     className="input input-bordered"
                   />
                 </div>
@@ -197,10 +229,10 @@ export default function Profile() {
                   </label>
                   <input
                     type="text"
-                    placeholder={Seller_Data.Phone}
+                    placeholder="Type here"
                     id="Phone"
-                    value=""
-                    onChange={(e) => setPhone(e.target.value)}
+                    value={Phone}
+                    onChange={set_Phone}
                     className="input input-bordered"
                   />
                 </div>
@@ -209,7 +241,7 @@ export default function Profile() {
                 <input
                   type="hidden"
                   id="Profile_Picture"
-                  value={Seller_Data.Profile_Picture}
+                  value={Profile_Picture}
                 />
 
                 {/* Submit Button */}
@@ -217,6 +249,7 @@ export default function Profile() {
                   <input
                     className="btn btn-outline btn-success rounded-2xl"
                     type="submit"
+                    disabled={!isFormComplete} // Disable the button when the form is incomplete
                     value="Update Profile !"
                   />
                 </div>
@@ -266,16 +299,3 @@ export default function Profile() {
     </>
   );
 }
-
-// export async function getStaticProps() {
-//   try {
-//     const response = await axios.get("http://localhost:3000/seller/profile", {
-//       withCredentials: true,
-//     });
-//     const data = await response.data;
-//     return { props: { data } };
-//   } catch (error) {
-//     console.error("Error fetching seller profile data:", error);
-//     return { props: { data: [] } };
-//   }
-// }
