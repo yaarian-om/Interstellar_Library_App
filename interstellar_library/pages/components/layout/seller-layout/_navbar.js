@@ -21,11 +21,9 @@ export default function _NavBar() {
 
         // console.info("Session Data =", sessionData);
 
-        if (!sessionData) {
-          router.push("/seller/login");
-        }
       } catch (error) {
         console.error("Error checking session:", error);
+        router.push("/seller/login");
       }
     }, 1000);
 
@@ -76,6 +74,12 @@ export default function _NavBar() {
   const sendToAll_Books = function () {
     router.push({
       pathname: "/seller/all_books",
+    });
+  };
+
+  const sendToView_Orders = function () {
+    router.push({
+      pathname: "/seller/view_orders",
     });
   };
 
@@ -134,16 +138,16 @@ export default function _NavBar() {
               <label htmlFor="my-drawer" className="drawer-overlay"></label>
               <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
                 {/* Sidebar content here */}
-                <li>
-                  <a onClick={sendToDashboard}>Dashboard</a>
+                <li onClick={sendToDashboard}>
+                  <a>Dashboard</a>
                 </li>
-                <li>
-                  <a onClick={sendToAdd_Books}>Add Books</a>
+                <li onClick={sendToAdd_Books}>
+                  <a>Add Books</a>
                 </li>
-                <li>
-                  <a onClick={sendToAll_Books}>View Books</a>
+                <li onClick={sendToAll_Books}>
+                  <a>View Books</a>
                 </li>
-                <li>
+                <li onClick={sendToView_Orders}>
                   <a>View Orders</a>
                 </li>
                 {/* <li><a>View Profile</a></li> */}
