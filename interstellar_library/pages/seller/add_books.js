@@ -68,6 +68,7 @@ export default function Add_Books() {
         "http://localhost:3000/seller/add_books",
         formData,
         {
+          withCredentials: true,
           headers: {
             "Content-Type": "multipart/form-data",
           },

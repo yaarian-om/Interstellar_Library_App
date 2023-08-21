@@ -157,8 +157,8 @@ export default function Profile() {
       }
     } catch (error) {
       console.error("Error updating profile :");
-      console.error("Data I have sent :", error.response.data);
-      console.error("Response I Got :", error.response.data.message);
+      console.info("Data I have sent :", error.response.data);
+      console.info("Response I Got :", error.response.data.message);
     }
   };
 
