@@ -51,15 +51,24 @@ export default function View_Single_Book() {
   useEffect(() => {
     if (CollectedBookData !== null) {
       console.log("Collected BookData:", CollectedBookData);
+      // Setting Data to the variables
       setBook_ID(CollectedBookData?.Book_ID);
-      console.log("Book_ID :", CollectedBookData.Book_ID);
-      console.log("Title :", CollectedBookData.Title);
-      console.log("Author :", CollectedBookData.Author);
-      console.log("ISBN :", CollectedBookData.ISBN);
-      console.log("Condition :", CollectedBookData.Condition);
-      console.log("Price :", CollectedBookData.Price);
-      console.log("Book Image Name :", CollectedBookData.Book_Image);
-      console.log("Seller_ID :", CollectedBookData.Seller_ID);
+      setTitle(CollectedBookData?.Title);
+      setAuthor(CollectedBookData?.Author);
+      setISBN(CollectedBookData?.ISBN);
+      setCondition(CollectedBookData?.Condition);
+      setPrice(CollectedBookData?.Price);
+      setBook_Image(CollectedBookData?.Book_Image);
+      setSeller_ID(CollectedBookData?.Seller_ID);
+
+      console.log("Book_ID :", Book_ID);
+      console.log("Title :", Title);
+      console.log("Author :", Author);
+      console.log("ISBN :", ISBN);
+      console.log("Condition :", Condition);
+      console.log("Price :", Price);
+      console.log("Book Image Name :", Book_Image);
+      console.log("Seller_ID :", Seller_ID);
     }
   }, [CollectedBookData]);
 
@@ -124,9 +133,23 @@ export default function View_Single_Book() {
       console.log("Posting Data...");
 
       const response = await axios.put(
-        "http://localhost:3000/seller/books/update_book_info/" +
-          CollectedBookData?.Book_ID,
-        formData
+        "http://localhost:3000/seller/books/update_book_info/" + Book_ID,
+        {
+          Book_ID: Book_ID,
+          Title: Title,
+          Author: Author,
+          ISBN:ISBN,
+          Condition: Condition,
+          Price: Price,
+          Book_Image: Book_Image,
+          Seller_ID: Seller_ID,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       console.log(response);
@@ -167,6 +190,26 @@ export default function View_Single_Book() {
     }
   };
 
+  // #region  [Data Insertion to the variables]
+
+  const set_Title = (e) => {
+    setTitle(e.target.value);
+  };
+  const set_Author = (e) => {
+    setAuthor(e.target.value);
+  };
+  const set_ISBN = (e) => {
+    setISBN(e.target.value);
+  };
+  const set_Condition = (e) => {
+    setCondition(e.target.value);
+  };
+  const set_Price = (e) => {
+    setPrice(e.target.value);
+  };
+
+  // #endregion  [Data Insertion to the variables]
+
   return (
     <>
       <_Title title="Add Books" />
@@ -177,8 +220,8 @@ export default function View_Single_Book() {
             <input
               type="hidden"
               id="Book_ID"
-              value={CollectedBookData?.Book_ID}
-              onChange={(e) => setBook_ID(CollectedBookData?.Book_ID)}
+              value={Book_ID}
+              // onChange={(e) => setBook_ID(CollectedBookData?.Book_ID)}
             />
 
             <div className="grid grid-cols-2 gap-4 w-full max-w-screen-lg mx-auto">
@@ -190,10 +233,10 @@ export default function View_Single_Book() {
                   </label>
                   <input
                     type="text"
-                    placeholder={CollectedBookData?.Title}
+                    placeholder={Title}
                     id="Title"
                     value={Title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={set_Title}
                     className="input input-bordered"
                   />
                 </div>
@@ -204,10 +247,10 @@ export default function View_Single_Book() {
                   </label>
                   <input
                     type="text"
-                    placeholder={CollectedBookData?.Author}
+                    placeholder={Author}
                     id="Author"
                     value={Author}
-                    onChange={(e) => setAuthor(e.target.value)}
+                    onChange={set_Author}
                     className="input input-bordered"
                   />
                 </div>
@@ -218,10 +261,10 @@ export default function View_Single_Book() {
                   </label>
                   <input
                     type="number"
-                    placeholder={CollectedBookData?.ISBN}
+                    placeholder={ISBN}
                     id="ISBN"
                     value={ISBN}
-                    onChange={(e) => setISBN(e.target.value)}
+                    onChange={set_ISBN}
                     className="input input-bordered"
                   />
                 </div>
@@ -232,10 +275,10 @@ export default function View_Single_Book() {
                   </label>
                   <input
                     type="text"
-                    placeholder={CollectedBookData?.Condition}
+                    placeholder={Condition}
                     id="Condition"
                     value={Condition}
-                    onChange={(e) => setCondition(e.target.value)}
+                    onChange={set_Condition}
                     className="input input-bordered"
                   />
                 </div>
@@ -266,10 +309,10 @@ export default function View_Single_Book() {
                   </label>
                   <input
                     type="number"
-                    placeholder={CollectedBookData?.Price}
+                    placeholder={Price}
                     id="Price"
                     value={Price}
-                    onChange={(e) => setPrice(e.target.value)}
+                    onChange={set_Price}
                     className="input input-bordered"
                   />
                 </div>

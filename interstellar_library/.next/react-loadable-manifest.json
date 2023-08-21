@@ -11,20 +11,14 @@
       "static/chunks/pages_components_layout_seller-layout_seller_layout_js.js"
     ]
   },
-  "seller\\profile.js -> ../components/layout/_title": {
-    "id": "seller\\profile.js -> ../components/layout/_title",
+  "seller\\dashboard.js -> ../components/layout/_title": {
+    "id": "seller\\dashboard.js -> ../components/layout/_title",
     "files": [
       "static/chunks/pages_components_layout__title_js.js"
     ]
   },
-  "seller\\profile.js -> ../components/layout/seller-layout/_profile_Navigation": {
-    "id": "seller\\profile.js -> ../components/layout/seller-layout/_profile_Navigation",
-    "files": [
-      "static/chunks/pages_components_layout_seller-layout__profile_Navigation_js.js"
-    ]
-  },
-  "seller\\profile.js -> ../components/layout/seller-layout/seller_layout": {
-    "id": "seller\\profile.js -> ../components/layout/seller-layout/seller_layout",
+  "seller\\dashboard.js -> ../components/layout/seller-layout/seller_layout": {
+    "id": "seller\\dashboard.js -> ../components/layout/seller-layout/seller_layout",
     "files": [
       "static/chunks/pages_components_layout_seller-layout_seller_layout_js.js"
     ]
