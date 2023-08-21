@@ -9,7 +9,7 @@ const _Layout = dynamic(() =>
 );
 const _Title = dynamic(() => import("../components/layout/_title"));
 
-export default function All_Books({ data }) {
+export default function All_Books() {
   const router = useRouter();
 
   const [bookImages, setBookImages] = useState({});
@@ -20,38 +20,64 @@ export default function All_Books({ data }) {
     setSelectedBookId(data);
   };
 
-  // * Default function that is called automatically when the page loads
-  useEffect(() => {
-    // window.location.reload(); // Page Reloads for this line
-    fetchBookImages();
-  }, []);
 
-  // * Getting Book Image while the Page Loads
-  const fetchBookImages = async () => {
-    try {
-      const imagePromises = data.flatMap((seller) =>
-        seller.books.map(async (book) => {
+const [booksData, setBooksData] = useState([]); // State to store fetched books
+
+// Function to fetch all books from the API
+const fetchBooks = async () => {
+  try {
+    const response = await axios.get("http://localhost:3000/seller/books", {
+      withCredentials: true,
+    });
+    const books = response.data;
+    setBooksData(books);
+  } catch (error) {
+    console.error("Error fetching books:", error);
+  }
+};
+
+const fetchBookImages = async () => {
+  try {
+    const imagePromises = booksData.flatMap((seller) =>
+      seller.books.map(async (book) => {
+        try {
           const response = await axios.get(
             `http://localhost:3000/seller/book/book_image/${book.Book_ID}`,
-            {
-              responseType: "arraybuffer",
-            }
+            { withCredentials: true, responseType: "arraybuffer" }
           );
           const imageBlob = new Blob([response.data], {
             type: response.headers["content-type"],
           });
           const imageUrl = URL.createObjectURL(imageBlob);
+
           setBookImages((prevImages) => ({
             ...prevImages,
             [book.Book_ID]: imageUrl,
           }));
-        })
-      );
-      await Promise.all(imagePromises);
-    } catch (error) {
-      console.error("Error fetching book images:", error);
-    }
-  };
+        } catch (error) {
+          console.error(
+            `Error fetching image for book ${book.Book_ID}:`,
+            error
+          );
+        }
+      })
+    );
+    await Promise.all(imagePromises);
+  } catch (error) {
+    console.error("Error fetching book images:", error);
+  }
+};
+
+useEffect(() => {
+  fetchBooks();
+}, []);
+
+useEffect(() => {
+  if (booksData.length > 0) {
+    fetchBookImages();
+  }
+}, [booksData]);
+
 
   //* Delete Function
   const handleDelete = async () => {
@@ -117,7 +143,7 @@ export default function All_Books({ data }) {
                 </tr>
               </thead>
               <tbody>
-                {data.flatMap((seller) =>
+                {booksData.flatMap((seller) =>
                   seller.books.map((book) => (
                     <tr key={book.Book_ID}>
                       <td className="px-6">{book.Book_ID}</td>
@@ -203,13 +229,3 @@ export default function All_Books({ data }) {
   );
 }
 
-export async function getStaticProps() {
-  try {
-    const response = await axios.get("http://localhost:3000/seller/books");
-    const data = await response.data;
-    return { props: { data } };
-  } catch (error) {
-    console.error("Error fetching book data:", error);
-    return { props: { data: [] } };
-  }
-}

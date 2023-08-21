@@ -116,7 +116,7 @@ export default function Address() {
           City:City,
           Country:Country,
           ZIP:ZIP
-        }
+        },
       );
       if (response.data) {
         console.log(response.data);
