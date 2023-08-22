@@ -10,9 +10,10 @@ export default function _NavBar() {
   const router = useRouter();
   const [userImage, setUserImage] = useState(null);
   const [session_data, setSession_data] = useState(null);
+  const [feedback, setFeedback] = useState('');
 
 
-  // #region Search-Bar Code
+  // #region [Search-Bar Code]
 
   const [criteria, setCriteria] = useState(''); // Selected filter criteria
   const [inputValue, setInputValue] = useState(''); // Input value
@@ -61,8 +62,51 @@ export default function _NavBar() {
     setDropdownVisible(false); // Hide dropdown when criteria changes
   };
 
-  // #endregion Search-Bar Code
+  // #endregion [Search-Bar Code]
 
+  // #region [Feedback]
+
+
+  const handleFeedback = async () =>{
+    
+    const Feedback_ID = 0;
+    const Date = "20/10/2001";
+    const Sender_ID = 0;
+    const Receiver_ID = 0;
+    const Receiver_Type = "Admin";
+
+    const response = await axios.post(
+      "http://localhost:3000/seller/feedbacks/send_feedback",
+      {
+        Feedback_ID : Feedback_ID,
+        Comment : feedback,
+        Date : Date,
+        Sender_ID : Sender_ID,
+        Receiver_ID : Receiver_ID,
+        Receiver_Type : Receiver_Type
+      },
+      {
+        withCredentials: true,
+        headers: {
+            "Content-Type": "application/json",
+          },
+      }
+    );
+
+    if(response != null){
+      // Give a notification in green Success
+    }else{
+      // Give a notification in Red Failed
+    }
+
+  }
+
+ const set_Feedback = (e)=> {
+    setFeedback(e.target.value);
+  }
+
+  
+  // #endregion [Feedback]
 
 
 
@@ -219,20 +263,15 @@ export default function _NavBar() {
             <div className="join">
               <button className="btn btn-ghost btn-circle">
                 <div className="indicator">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                  <div className="w-10 rounded-full">
+                    {/* Image */}
+                    <img
+                      src="/images/seller/all_feedbacks.png"
+                      alt="Feedback"
+                      onClick={() => window.feedback_modal.showModal()}
                     />
-                  </svg>
+                  </div>
+                  
                   {/* <span className="badge badge-xs badge-primary indicator-item"></span> */}
                 </div>
               </button>
@@ -247,20 +286,17 @@ export default function _NavBar() {
                   {/* Search Result Display */}
 
                   <div className="artboard">
-                <ul>
-                  {books.map((book) => (
-                    <li key={book.Book_ID}>
-                      <a
-                        onClick={() => handleBookClick(book.Book_ID)}
-                      >
-                        {book.Title}
-                        <input type="hidden" value={book.Book_ID} />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-            </div>
-
+                    <ul>
+                      {books.map((book) => (
+                        <li key={book.Book_ID}>
+                          <a onClick={() => handleBookClick(book.Book_ID)}>
+                            {book.Title}
+                            <input type="hidden" value={book.Book_ID} />
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
               <select
@@ -324,6 +360,24 @@ export default function _NavBar() {
                   </div>
                 </form>
               </dialog>
+
+              {/* You can open the modal using ID.showModal() method */}
+              {/* <button className="btn" >open modal</button> */}
+              <dialog id="feedback_modal" className="modal">
+                <form method="dialog" className="modal-box">
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                    ✕
+                  </button>
+                  <h3 className="font-bold text-lg">Write what you wanna tell us?</h3>
+                  <textarea placeholder="Feedback" className="textarea textarea-bordered textarea-lg w-full max-w-xs" onChange={set_Feedback} ></textarea>
+                  <div className="modal-action">
+                    {/* if there is a button in form, it will close the modal */}
+                    <a onClick={() => {handleFeedback(); window.feedback_modal.close()}} className="btn">
+                      Send Feedback
+                    </a>
+                  </div>
+                </form>
+              </dialog>
             </ul>
           </div>
         </div>
@@ -331,3 +385,4 @@ export default function _NavBar() {
     </>
   );
 }
+// window.feedback_modal.close()
