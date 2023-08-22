@@ -3,12 +3,69 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../../utils/authcontext";
 
+
 export default function _NavBar() {
   const { user, logout } = useAuth();
 
   const router = useRouter();
   const [userImage, setUserImage] = useState(null);
   const [session_data, setSession_data] = useState(null);
+
+
+  // #region Search-Bar Code
+
+  const [criteria, setCriteria] = useState(''); // Selected filter criteria
+  const [inputValue, setInputValue] = useState(''); // Input value
+  const [books, setBooks] = useState([]); // List of books
+  const [isDropdownVisible, setDropdownVisible] = useState(false); // Dropdown visibility
+  // const router = useRouter();
+
+  const handleInputChange = async (event) => {
+    const newValue = event.target.value;
+    setInputValue(newValue);
+    console.info("Criteria Name = "+criteria);
+    console.info("Input value = "+inputValue);
+
+    // Fetch books based on criteria and input value
+    if (newValue.length > 0) {
+      try {
+        console.info("Sending request...");
+        const response = await axios.get(
+          `http://localhost:3000/seller/book/search?criteria=${criteria}&value=${newValue}`,{
+            withCredentials:true
+          }
+        );
+        setBooks(response.data);
+        console.log("Book Data = "+books);
+        setDropdownVisible(true);
+        console.info("DropdownVisible value = "+isDropdownVisible)
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      }
+    } else {
+      setDropdownVisible(false);
+      setBooks([]);
+    }
+  };
+
+  const handleBookClick = (bookId) => {
+    router.push(`/seller/book/${bookId}`);
+  };
+
+  const handleCriteriaChange = (event) => {
+    const newCriteria = event.target.value;
+    setCriteria(newCriteria);
+    console.warn("Criteria = "+criteria);
+    setInputValue(''); // Clear input value when criteria changes
+    setBooks([]); // Clear books when criteria changes
+    setDropdownVisible(false); // Hide dropdown when criteria changes
+  };
+
+  // #endregion Search-Bar Code
+
+
+
+
 
   // #region [Check Backend Session is Active or NOT]
   useEffect(() => {
@@ -184,14 +241,41 @@ export default function _NavBar() {
                   <input
                     className="input input-bordered join-item"
                     placeholder="Search"
+                    value={inputValue}
+                    onChange={handleInputChange}
                   />
+                  {/* Search Result Display */}
+
+                  <div className="artboard">
+                <ul>
+                  {books.map((book) => (
+                    <li key={book.Book_ID}>
+                      <a
+                        onClick={() => handleBookClick(book.Book_ID)}
+                      >
+                        {book.Title}
+                        <input type="hidden" value={book.Book_ID} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+            </div>
+
                 </div>
               </div>
-              <select className="select select-bordered join-item">
+              <select
+                className="select select-bordered join-item"
+                value={criteria}
+                onChange={(e) => setCriteria(e.target.value)}
+              >
                 <option disabled selected value="">
                   Filter
                 </option>
-                <option value="">Book</option>
+                <option value="Title">Book Title</option>
+                <option value="Author">Book Author</option>
+                <option value="ISBN">Book ISBN</option>
+                <option value="Condition">Book Condition</option>
+                <option value="Price">Book Price</option>
                 {/* <option>Drama</option>
                 <option>Action</option> */}
               </select>
