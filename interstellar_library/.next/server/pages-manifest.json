@@ -2,7 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/seller/dashboard": "pages/seller/dashboard.js",
   "/seller/login": "pages/seller/login.js",
-  "/seller/all_books": "pages/seller/all_books.js"
+  "/seller/dashboard": "pages/seller/dashboard.js",
+  "/seller/logout": "pages/seller/logout.js",
+  "/seller/all_books": "pages/seller/all_books.js",
+  "/seller/view_orders": "pages/seller/view_orders.js"
 }

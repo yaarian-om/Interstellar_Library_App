@@ -177,6 +177,7 @@ export default function View_Single_Book() {
         `http://localhost:3000/seller/book/book_image/` + router.query.id,
         {
           responseType: "arraybuffer",
+          withCredentials: true,
         }
       );
 

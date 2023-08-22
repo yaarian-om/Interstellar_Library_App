@@ -106,7 +106,7 @@ export default function Login() {
                   <br />
                   <br />
                   <input
-                    class="btn w-64 btn-outline btn-success rounded-full"
+                    className="btn w-64 btn-outline btn-success rounded-full"
                     type="submit"
                     value="Login"
                   />

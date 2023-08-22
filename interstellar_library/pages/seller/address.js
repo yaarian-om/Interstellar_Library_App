@@ -110,13 +110,16 @@ export default function Address() {
       const response = await axios.put(
         "http://localhost:3000/seller/profile/update_profile_info/update_address",
         {
-          Address_ID:Address_ID,
-          Street:Street,
-          Building:Building,
-          City:City,
-          Country:Country,
-          ZIP:ZIP
+          Address_ID: Address_ID,
+          Street: Street,
+          Building: Building,
+          City: City,
+          Country: Country,
+          ZIP: ZIP,
         },
+        {
+          withCredentials: true,
+        }
       );
       if (response.data) {
         console.log(response.data);
