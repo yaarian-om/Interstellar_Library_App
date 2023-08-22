@@ -34,5 +34,17 @@
     "files": [
       "static/chunks/pages_components_layout__title_js.js"
     ]
+  },
+  "seller\\view_orders.js -> ../components/layout/_title": {
+    "id": "seller\\view_orders.js -> ../components/layout/_title",
+    "files": [
+      "static/chunks/pages_components_layout__title_js.js"
+    ]
+  },
+  "seller\\view_orders.js -> ../components/layout/seller-layout/seller_layout": {
+    "id": "seller\\view_orders.js -> ../components/layout/seller-layout/seller_layout",
+    "files": [
+      "static/chunks/pages_components_layout_seller-layout_seller_layout_js.js"
+    ]
   }
 }

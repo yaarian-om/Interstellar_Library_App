@@ -23,7 +23,12 @@ export default function  Logout() {
   const handleSubmit = async (e) => {
     // e.preventDefault();
     try {
-        const response = await axios.post("http://localhost:3000/seller/logout")
+        const response = await axios.post(
+          "http://localhost:3000/seller/logout",
+          {
+            withCredentials: true,
+          }
+        );
         if (response.data.Logout == "Success") {
             router.push({
                 pathname: '/seller/login',
