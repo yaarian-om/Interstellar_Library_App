@@ -35,8 +35,8 @@ export default function _NavBar() {
   };
 
    const handleShow_Failed_Toast = (message) => {
-    setShowToast_failed(message);
-    setToastMessage_failed(true);
+    setShowToast_failed(true);
+    setToastMessage_failed(message);
 
     setTimeout(() => {
       setShowToast_failed(false);
@@ -314,7 +314,7 @@ export default function _NavBar() {
                     />
                   </div>
                     {showToast && <Toast_Success message={toastMessage} />}
-                    {showToast && <Toast_Failed message={toastMessage_failed} />}
+                    {showToast_failed && <Toast_Failed message={toastMessage_failed} />}
                   
                   {/* <span className="badge badge-xs badge-primary indicator-item"></span> */}
                 </div>

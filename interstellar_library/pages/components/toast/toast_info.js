@@ -1,30 +1,13 @@
-import { useState } from 'react';
+import React from "react";
 
-function Toast_Info() {
-  const [isToastVisible, setIsToastVisible] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-
-  const showToast = (message) => {
-    setToastMessage(message);
-    setIsToastVisible(true);
-
-    // Automatically hide the toast after a certain time
-    setTimeout(() => {
-      setIsToastVisible(false);
-      setToastMessage('');
-    }, 3000); // Hide after 3 seconds
-  };
-
+const Toast_Info = ({ message }) => {
   return (
-    <div className={`toast ${isToastVisible ? 'toast-end' : ''}`}>
-      {isToastVisible && (
-        <div className="alert alert-info">
-          <span>{toastMessage}</span>
-        </div>
-      )}
-      {/* ... other toast messages ... */}
+    <div className="toast toast-end">
+      <div className="alert alert-info">
+        <span className="">{message}</span>
+      </div>
     </div>
   );
-}
+};
 
 export default Toast_Info;
