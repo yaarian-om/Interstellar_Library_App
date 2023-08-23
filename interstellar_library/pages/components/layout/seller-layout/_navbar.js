@@ -2,6 +2,9 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../../utils/authcontext";
+import Toast_Info from "../../toast/toast_info";
+import Toast_Success from "../../toast/toast_success";
+import Toast_Failed from "../../toast/toast_failed";
 
 
 export default function _NavBar() {
@@ -11,6 +14,41 @@ export default function _NavBar() {
   const [userImage, setUserImage] = useState(null);
   const [session_data, setSession_data] = useState(null);
   const [feedback, setFeedback] = useState('');
+
+
+
+  // #region [Toast Message]
+
+  const [showToast, setShowToast] = useState(false);
+  const [showToast_failed, setShowToast_failed] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastMessage_failed, setToastMessage_failed] = useState('');
+
+  const handleShow_Success_Toast = (message) => {
+    setToastMessage(message);
+    setShowToast(true);
+
+    setTimeout(() => {
+      setShowToast(false);
+      setToastMessage('');
+    }, 3000); // Hide after 3 seconds
+  };
+
+   const handleShow_Failed_Toast = (message) => {
+    setShowToast_failed(message);
+    setToastMessage_failed(true);
+
+    setTimeout(() => {
+      setShowToast_failed(false);
+      setToastMessage_failed('');
+    }, 3000); // Hide after 3 seconds
+  };
+
+
+  
+  // #endregion [Toast Message]
+
+
 
 
   // #region [Search-Bar Code]
@@ -95,8 +133,12 @@ export default function _NavBar() {
 
     if(response != null){
       // Give a notification in green Success
+      handleShow_Success_Toast("Feedback Sent !");
+      
     }else{
       // Give a notification in Red Failed
+      handleShow_Failed_Toast("Failed to send Feedback");
+      
     }
 
   }
@@ -271,6 +313,8 @@ export default function _NavBar() {
                       onClick={() => window.feedback_modal.showModal()}
                     />
                   </div>
+                    {showToast && <Toast_Success message={toastMessage} />}
+                    {showToast && <Toast_Failed message={toastMessage_failed} />}
                   
                   {/* <span className="badge badge-xs badge-primary indicator-item"></span> */}
                 </div>
@@ -381,7 +425,7 @@ export default function _NavBar() {
             </ul>
           </div>
         </div>
-      </div>{" "}
+      </div>
     </>
   );
 }
