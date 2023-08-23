@@ -4,7 +4,7 @@ const Toast_Success = ({ message }) => {
   return (
     <div className="toast toast-end">
       <div className="alert alert-success">
-        <span>{message}</span>
+        <span className="text-white">{message}</span>
       </div>
     </div>
   );
