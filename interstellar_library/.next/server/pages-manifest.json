@@ -2,7 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/seller/login": "pages/seller/login.js",
   "/seller/dashboard": "pages/seller/dashboard.js",
-  "/seller/view_orders": "pages/seller/view_orders.js"
+  "/seller/login": "pages/seller/login.js"
 }

@@ -27,10 +27,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/seller/dashboard.js"
     ],
-    "/seller/view_orders": [
+    "/seller/login": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/seller/view_orders.js"
+      "static/chunks/pages/seller/login.js"
     ]
   },
   "ampFirstPages": []
