@@ -245,6 +245,14 @@ export default function Login() {
   };
   // #endregion [Loading Modal]
 
+  // #region [Send to Signup]
+  const sendToSeller_Signup = function () {
+    router.push({
+      pathname: "/seller/signup",
+    });
+  };
+  // #endregion [Send to Signup]
+
 
 
 
@@ -318,7 +326,10 @@ export default function Login() {
                   <div class="flex justify-center">
                     <label className="label text-sm">
                       Don't have an account?
-                      <span className="text-green-500 hover:text-black transition-colors cursor-pointer ml-2">
+                      <span
+                        className="text-green-500 hover:text-black transition-colors cursor-pointer ml-2"
+                        onClick={sendToSeller_Signup}
+                      >
                         Signup
                       </span>
                     </label>

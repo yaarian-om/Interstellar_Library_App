@@ -2,9 +2,10 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
   "/seller/login": "pages/seller/login.js",
   "/seller/dashboard": "pages/seller/dashboard.js",
   "/seller/profile": "pages/seller/profile.js",
+  "/": "pages/index.js",
+  "/seller/logout": "pages/seller/logout.js",
   "/seller/address": "pages/seller/address.js"
 }
