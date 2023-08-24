@@ -8,6 +8,12 @@ export default function _NavBar() {
     });
   };
 
+  const sendToSeller_Signup = function () {
+    router.push({
+      pathname: "/seller/signup",
+    });
+  };
+
   const sendTHome = function () {
     router.push({
       pathname: "/",
@@ -39,7 +45,7 @@ export default function _NavBar() {
                   <li>
                     <a>Customer</a>
                   </li>
-                  <li>
+                  <li onClick={sendToSeller_Signup}>
                     <a>Seller</a>
                   </li>
                   {/* <li><a>Moderator</a></li>
@@ -55,8 +61,8 @@ export default function _NavBar() {
                   <li>
                     <a>Customer</a>
                   </li>
-                  <li>
-                    <a onClick={sendToSeller_Login}>Seller</a>
+                  <li onClick={sendToSeller_Login}>
+                    <a>Seller</a>
                   </li>
                   <li>
                     <a>Moderator</a>
