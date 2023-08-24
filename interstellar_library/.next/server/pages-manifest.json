@@ -5,5 +5,6 @@
   "/": "pages/index.js",
   "/seller/login": "pages/seller/login.js",
   "/seller/dashboard": "pages/seller/dashboard.js",
-  "/seller/logout": "pages/seller/logout.js"
+  "/seller/profile": "pages/seller/profile.js",
+  "/seller/address": "pages/seller/address.js"
 }

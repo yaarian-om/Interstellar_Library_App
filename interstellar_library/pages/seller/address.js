@@ -16,7 +16,7 @@ const _Title = dynamic(() => import("../components/layout/_title"));
 export default function Address() {
   const router = useRouter();
 
-  const [Address_ID, setAddress_ID] = useState(0);
+  const [Address_ID, setAddress_ID] = useState(-1);
   const [Street, setStreet] = useState("");
   const [Building, setBuilding] = useState("");
   const [City, setCity] = useState("");
