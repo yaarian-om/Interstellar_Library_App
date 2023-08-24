@@ -57,7 +57,7 @@ export default function Address() {
 
   // * Collect Seller Data
   useEffect(() => {
-    if (Seller_Address !== null) {
+    if ((Seller_Address !==  undefined) && Seller_Address !== null) {
       console.log("Collected Seller Data :", Seller_Address);
       setAddress_ID(Seller_Address.Address_ID);
       setStreet(Seller_Address.Street);
@@ -66,15 +66,13 @@ export default function Address() {
       setCountry(Seller_Address.Country);
       setZIP(Seller_Address.ZIP);
       setSeller_ID(Seller_Address.Seller_ID);
-      console.info("Address id = "+Address_ID)
-      console.info("Street = "+Street)
-      console.info("Building = "+Building)
-      console.info("City = "+City)
-      console.info("Country = "+Country)
-       console.info("ZIP = "+ZIP)
-      console.info("Seller_ID = "+Seller_ID)
-
-
+      console.info("Address id = " + Address_ID);
+      console.info("Street = " + Street);
+      console.info("Building = " + Building);
+      console.info("City = " + City);
+      console.info("Country = " + Country);
+      console.info("ZIP = " + ZIP);
+      console.info("Seller_ID = " + Seller_ID);
     }
   }, [Seller_Address]);
 
@@ -107,6 +105,7 @@ export default function Address() {
     e.preventDefault();
     if (isFormComplete) {
       try {
+        console.log("Updating Address... ")
       const response = await axios.put(
         "http://localhost:3000/seller/profile/update_profile_info/update_address",
         {
