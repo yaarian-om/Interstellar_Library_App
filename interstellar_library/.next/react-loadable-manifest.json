@@ -10,5 +10,17 @@
     "files": [
       "static/chunks/pages_components_layout_seller-layout_seller_layout_js.js"
     ]
+  },
+  "seller\\login.js -> ../components/layout/_layout": {
+    "id": "seller\\login.js -> ../components/layout/_layout",
+    "files": [
+      "static/chunks/pages_components_layout__layout_js.js"
+    ]
+  },
+  "seller\\login.js -> ../components/layout/_title": {
+    "id": "seller\\login.js -> ../components/layout/_title",
+    "files": [
+      "static/chunks/pages_components_layout__title_js.js"
+    ]
   }
 }
