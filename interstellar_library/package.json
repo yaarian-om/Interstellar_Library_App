@@ -15,7 +15,8 @@
     "next": "^13.4.12",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-tailwindcss-datepicker": "^1.6.6"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
