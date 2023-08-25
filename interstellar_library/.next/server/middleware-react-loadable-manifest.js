@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{}"
+self.__REACT_LOADABLE_MANIFEST="{\"seller\\\\dashboard.js -> ../components/layout/_title\":{\"id\":\"seller\\\\dashboard.js -> ../components/layout/_title\",\"files\":[\"static/chunks/pages_components_layout__title_js.js\"]},\"seller\\\\dashboard.js -> ../components/layout/seller-layout/seller_layout\":{\"id\":\"seller\\\\dashboard.js -> ../components/layout/seller-layout/seller_layout\",\"files\":[\"static/chunks/pages_components_layout_seller-layout_seller_layout_js.js\"]}}"
