@@ -15,7 +15,8 @@ export default function XDashboard() {
   return (
     <>
       <_Layout>
-        <h1>Welcome to Dashboard</h1>
+        {/* <h1>Welcome to Dashboard</h1> */}
+        <Dashboard/>
       </_Layout>
     </>
   );
