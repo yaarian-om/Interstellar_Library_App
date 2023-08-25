@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import axios from "axios";
 import Image from "next/image";
-// import Dashboard from '../components/dashboard/index'
+import Dashboard from '../components/dashboard/index'
 
 // Dynamic Imports
 const _Layout = dynamic(() =>
