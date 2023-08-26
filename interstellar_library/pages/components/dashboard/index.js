@@ -65,7 +65,7 @@ function Dashboard() {
 
   return (
     <>
-      <div className="grid lg:grid-cols-4 mt-2 md:grid-cols-2 grid-cols-1 gap-6">
+      <div className="grid lg:grid-cols-2 mt-2 md:grid-cols-2 grid-cols-1 gap-6">
         {statsData.map((d, k) => (
           <DashboardStats key={k} {...d} colorIndex={k} />
         ))}
