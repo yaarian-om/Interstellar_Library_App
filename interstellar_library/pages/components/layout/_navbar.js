@@ -20,6 +20,18 @@ export default function _NavBar() {
     });
   };
 
+  const sendToAboutUs = function () {
+    router.push({
+      pathname: "/about-us",
+    });
+  };
+
+  const sendToContactUs = function () {
+    router.push({
+      pathname: "/contact-us",
+    });
+  };
+
   return (
     <>
       <div className="navbar bg-base-100">
@@ -30,13 +42,13 @@ export default function _NavBar() {
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
-            <li>
-              <a onClick={sendTHome}>Home</a>
+            <li onClick={sendTHome}>
+              <a>Home</a>
             </li>
-            <li>
+            <li onClick={sendToAboutUs}>
               <a>About Us</a>
             </li>
-            {/* <li><a>Home</a></li> */}
+            <li onClick={sendToContactUs}><a>Contact Us</a></li>
             {/* Signup */}
             <li>
               <details>
