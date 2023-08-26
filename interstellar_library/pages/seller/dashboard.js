@@ -14,9 +14,10 @@ const _Title = dynamic(() => import("../components/layout/_title"));
 export default function XDashboard() {
   return (
     <>
+      <_Title title="Dashboard" />
       <_Layout>
         {/* <h1>Welcome to Dashboard</h1> */}
-        <Dashboard/>
+        <Dashboard />
       </_Layout>
     </>
   );

@@ -243,6 +243,8 @@ export default function _NavBar() {
       pathname: "/seller/profile",
     });
   };
+
+  
   // #endregion [Storing New Data to Variable]
 
   return (
