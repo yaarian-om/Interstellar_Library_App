@@ -68,7 +68,7 @@ function LineChart() {
   };
 
   return (
-    <TitleCard title={"Monthly Order Stats"}>
+    <TitleCard title={"Order"}>
       <Line data={data} options={options} />
     </TitleCard>
   );

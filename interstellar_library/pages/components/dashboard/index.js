@@ -51,7 +51,7 @@ function Dashboard() {
   const statsData = [
     {
       title: "Profit Current Month",
-      value: "$" + current_Income,
+      value: "৳ " + current_Income+" BDT",
       icon: <CreditCardIcon className="w-8 h-8" />,
       description: "Current month",
     },
@@ -59,7 +59,7 @@ function Dashboard() {
       title: "Pending Delivery",
       value: pending_delivery,
       icon: <CircleStackIcon className="w-8 h-8" />,
-      description: "50 in hot leads",
+      description: "Current month",
     },
   ];
 
