@@ -36,24 +36,54 @@ export default function Login() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastMessage_failed, setToastMessage_failed] = useState("");
 
+  const [Email_Error, setEmail_Error] = useState("");
+  const [Password_Error, setPassword_Error] = useState("");
+  const [Name_Error, setName_Error] = useState("");
+  const [Phone_Error, setPhone_Error] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const isValidName = (name) => /^[a-zA-Z ]{3,50}$/.test(name);
+
+    const isValidEmail_new = (email) =>
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+    
+    const isValidPassword = (str) =>
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/.test(
+        str
+      );
+      const isValidPhone = (phone) => /^\d{10,20}$/.test(phone);
+
+
     if (!Email || !Password || !Name || !Phone ) {
       // setError("Email and password are required");
-    } else if (!isValidEmail(Email)) {
+    } else if (!isValidEmail(Email) ) {
       // setError("Invalid email address");
+      setEmail_Error("Email is required in the correct format")
+    } else if (!isValidPassword(Password)) {
+      // setError("Invalid Pass");
+      setPassword_Error("Password must have at least 1 uppercase, 1 lowercase, 1 digit, 1 special character, and be 8+ characters long")
+    }else if (!isValidName(Name)) {
+      // setError("Invalid Name");
+      setName_Error(
+        "Name should be between 3 and 50 characters and only contain letters and spaces"
+      );
+    } else if (!isValidPhone(Phone)) {
+      // setError("Invalid Pass");
+      setPhone_Error("Phone number should be between 10 and 20 digits");
     } else {
       try {
         const data = await axios.post(
-          "http://localhost:3000/seller/signup",{ 
-            Seller_ID : Seller_ID,
-            Name : Name,
-            Email : Email, 
-            Password : Password,
-            Phone : Phone,
-            Profile_Picture : Profile_Picture
-        },
+          "http://localhost:3000/seller/signup",
+          {
+            Seller_ID: Seller_ID,
+            Name: Name,
+            Email: Email,
+            Password: Password,
+            Phone: Phone,
+            Profile_Picture: Profile_Picture,
+          },
           {
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             // withCredentials: true,
@@ -166,7 +196,7 @@ export default function Login() {
                         <label className="label">
                           {/* <span className="label-text-alt">Bottom Left label</span> */}
                           <span className="label-text-alt text-red-600">
-                            Bottom Right label
+                            {Name_Error}
                           </span>
                         </label>
                       </div>
@@ -188,7 +218,7 @@ export default function Login() {
                         <label className="label">
                           {/* <span className="label-text-alt">Bottom Left label</span> */}
                           <span className="label-text-alt text-red-600">
-                            Bottom Right label
+                            {Phone_Error}
                           </span>
                         </label>
                       </div>
@@ -213,7 +243,7 @@ export default function Login() {
                         <label className="label">
                           {/* <span className="label-text-alt">Bottom Left label</span> */}
                           <span className="label-text-alt text-red-600">
-                            Bottom Right label
+                            {Email_Error}
                           </span>
                         </label>
                       </div>
@@ -235,7 +265,7 @@ export default function Login() {
                         <label className="label">
                           {/* <span className="label-text-alt">Bottom Left label</span> */}
                           <span className="label-text-alt text-red-600">
-                            Bottom Right label
+                            {Password_Error}
                           </span>
                         </label>
                       </div>
