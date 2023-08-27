@@ -34,6 +34,7 @@ export default function Login() {
                 console.log(res.data);
                 sessionStorage.setItem('user', JSON.stringify(res.data));
                 handleShow_Success_Toast("Login Successful");
+                login(Email, document.cookie);
                 setTimeout(() => {
                     router.push({
                         pathname: '/customer/dashboard',
