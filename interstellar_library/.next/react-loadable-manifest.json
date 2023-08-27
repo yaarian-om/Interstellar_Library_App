@@ -1,8 +1,32 @@
 {
+  "index.js -> ./components/layout/_layout": {
+    "id": "index.js -> ./components/layout/_layout",
+    "files": [
+      "static/chunks/pages_components_layout__layout_js-_dc571.js"
+    ]
+  },
+  "index.js -> ./components/layout/_title": {
+    "id": "index.js -> ./components/layout/_title",
+    "files": [
+      "static/chunks/pages_components_layout__title_js.js"
+    ]
+  },
+  "seller\\dashboard.js -> ../components/layout/_title": {
+    "id": "seller\\dashboard.js -> ../components/layout/_title",
+    "files": [
+      "static/chunks/pages_components_layout__title_js.js"
+    ]
+  },
+  "seller\\dashboard.js -> ../components/layout/seller-layout/seller_layout": {
+    "id": "seller\\dashboard.js -> ../components/layout/seller-layout/seller_layout",
+    "files": [
+      "static/chunks/pages_components_layout_seller-layout_seller_layout_js.js"
+    ]
+  },
   "seller\\login.js -> ../components/layout/_layout": {
     "id": "seller\\login.js -> ../components/layout/_layout",
     "files": [
-      "static/chunks/pages_components_layout__layout_js.js"
+      "static/chunks/pages_components_layout__layout_js-_dc570.js"
     ]
   },
   "seller\\login.js -> ../components/layout/_title": {
@@ -11,16 +35,16 @@
       "static/chunks/pages_components_layout__title_js.js"
     ]
   },
-  "seller\\view_orders.js -> ../components/layout/_title": {
-    "id": "seller\\view_orders.js -> ../components/layout/_title",
+  "seller\\signup.js -> ../components/layout/_layout": {
+    "id": "seller\\signup.js -> ../components/layout/_layout",
     "files": [
-      "static/chunks/pages_components_layout__title_js.js"
+      "static/chunks/pages_components_layout__layout_js-_dc570.js"
     ]
   },
-  "seller\\view_orders.js -> ../components/layout/seller-layout/seller_layout": {
-    "id": "seller\\view_orders.js -> ../components/layout/seller-layout/seller_layout",
+  "seller\\signup.js -> ../components/layout/_title": {
+    "id": "seller\\signup.js -> ../components/layout/_title",
     "files": [
-      "static/chunks/pages_components_layout_seller-layout_seller_layout_js.js"
+      "static/chunks/pages_components_layout__title_js.js"
     ]
   }
 }
