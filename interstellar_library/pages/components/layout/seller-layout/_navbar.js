@@ -15,6 +15,15 @@ export default function _NavBar() {
   const [session_data, setSession_data] = useState(null);
   const [feedback, setFeedback] = useState('');
 
+  const [isFormComplete, setIsFormComplete] = useState(false);
+  useEffect(
+    () =>
+      setIsFormComplete(
+        feedback
+      ),
+    [feedback]
+  );
+
 
 
   // #region [Toast Message]
@@ -113,7 +122,8 @@ export default function _NavBar() {
     const Receiver_ID = 0;
     const Receiver_Type = "Admin";
 
-    const response = await axios.post(
+    if(feedback != ""){
+      const response = await axios.post(
       "http://localhost:3000/seller/feedbacks/send_feedback",
       {
         Feedback_ID : Feedback_ID,
@@ -140,6 +150,8 @@ export default function _NavBar() {
       handleShow_Failed_Toast("Failed to send Feedback");
       
     }
+    }
+    
 
   }
 
@@ -418,7 +430,7 @@ export default function _NavBar() {
                   <textarea placeholder="Feedback" className="textarea textarea-bordered textarea-lg w-full max-w-xs" onChange={set_Feedback} ></textarea>
                   <div className="modal-action">
                     {/* if there is a button in form, it will close the modal */}
-                    <a onClick={() => {handleFeedback(); window.feedback_modal.close()}} className="btn">
+                    <a disabled={!isFormComplete}  onClick={() => {handleFeedback(); window.feedback_modal.close()}} className="btn">
                       Send Feedback
                     </a>
                   </div>

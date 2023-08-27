@@ -12,11 +12,6 @@
   ],
   "rootMainFiles": [],
   "pages": {
-    "/": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/index.js"
-    ],
     "/_app": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
@@ -27,50 +22,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/contact-us": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/contact-us.js"
-    ],
-    "/seller/add_books": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/seller/add_books.js"
-    ],
-    "/seller/address": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/seller/address.js"
-    ],
-    "/seller/all_books": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/seller/all_books.js"
-    ],
-    "/seller/dashboard": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/seller/dashboard.js"
-    ],
     "/seller/login": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/seller/login.js"
-    ],
-    "/seller/logout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/seller/logout.js"
-    ],
-    "/seller/profile": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/seller/profile.js"
-    ],
-    "/seller/signup": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/seller/signup.js"
     ],
     "/seller/view_orders": [
       "static/chunks/webpack.js",
