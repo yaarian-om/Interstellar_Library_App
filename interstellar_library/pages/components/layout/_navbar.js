@@ -55,7 +55,7 @@ export default function _NavBar() {
                 <summary>Signup</summary>
                 <ul className="p-2 bg-base-100">
                   <li>
-                    <a>Customer</a>
+                    <a href="/customer/signup" >Customer</a>
                   </li>
                   <li onClick={sendToSeller_Signup}>
                     <a>Seller</a>
@@ -71,7 +71,7 @@ export default function _NavBar() {
                 <summary>Login</summary>
                 <ul className="p-2 bg-base-100">
                   <li>
-                    <a>Customer</a>
+                    <a href="/customer/login" >Customer</a>
                   </li>
                   <li onClick={sendToSeller_Login}>
                     <a>Seller</a>
