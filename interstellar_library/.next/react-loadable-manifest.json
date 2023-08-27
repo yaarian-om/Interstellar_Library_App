@@ -2,7 +2,7 @@
   "customer\\dashboard.js -> ../components/layout/_layout": {
     "id": "customer\\dashboard.js -> ../components/layout/_layout",
     "files": [
-      "static/chunks/pages_components_layout__layout_js.js"
+      "static/chunks/pages_components_layout__layout_js-_dc570.js"
     ]
   },
   "customer\\dashboard.js -> ../components/layout/_title": {
@@ -11,16 +11,28 @@
       "static/chunks/pages_components_layout__title_js.js"
     ]
   },
-  "seller\\add_books.js -> ../components/layout/_title": {
-    "id": "seller\\add_books.js -> ../components/layout/_title",
+  "customer\\login.js -> ../components/layout/_layout": {
+    "id": "customer\\login.js -> ../components/layout/_layout",
+    "files": [
+      "static/chunks/pages_components_layout__layout_js-_dc570.js"
+    ]
+  },
+  "customer\\login.js -> ../components/layout/_title": {
+    "id": "customer\\login.js -> ../components/layout/_title",
     "files": [
       "static/chunks/pages_components_layout__title_js.js"
     ]
   },
-  "seller\\add_books.js -> ../components/layout/seller-layout/seller_layout": {
-    "id": "seller\\add_books.js -> ../components/layout/seller-layout/seller_layout",
+  "index.js -> ./components/layout/_layout": {
+    "id": "index.js -> ./components/layout/_layout",
     "files": [
-      "static/chunks/pages_components_layout_seller-layout_seller_layout_js.js"
+      "static/chunks/pages_components_layout__layout_js-_dc571.js"
+    ]
+  },
+  "index.js -> ./components/layout/_title": {
+    "id": "index.js -> ./components/layout/_title",
+    "files": [
+      "static/chunks/pages_components_layout__title_js.js"
     ]
   }
 }

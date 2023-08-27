@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../utils/authcontext";
 import LoadingModalDots from "../components/loading_modal/loading_modal_dots";
@@ -15,37 +15,74 @@ const _Title = dynamic(() => import("../components/layout/_title"));
 
 export default function Login() {
     const router = useRouter();
-    const [email, setEmail] = useState('');
-    const [password1, setPassword1] = useState('');
 
-    const onsubmit = (e) => {
-        e.preventDefault();
-        if (email.length > 100 || email.length < 5 || !email.includes('@') || !email.includes('.')) {
-            handleShow_Failed_Toast("Invalid Email");
-            return;
-        }
-        const matchregex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/;
-        if (!password1.match(matchregex)) {
-            handleShow_Failed_Toast("Password should contain at least one uppercase letter, one lowercase letter, one number, and one special character, and is at least 8 characters long.");
-            return;
-        }
-        axios.post('http://localhost:3000/customer/login', { email, password: password1 })
-            .then(res => {
-                console.log(res.data);
-                sessionStorage.setItem('user', JSON.stringify(res.data));
-                handleShow_Success_Toast("Login Successful");
-                login(Email, document.cookie);
-                setTimeout(() => {
-                    router.push({
-                        pathname: '/customer/dashboard',
-                    });
-                }, 1000);
-            })
-            .catch(err => {
-                console.log(err);
-                handleShow_Failed_Toast("Login Failed");
+    const [booksData, setBooksData] = useState([]); // State to store fetched books
+    const [bookImages, setBookImages] = useState({});
+
+    useEffect(() => {
+        if (!sessionStorage.getItem('user')) {
+            router.push({
+                pathname: '/customer/login',
             });
-    }
+        }
+    }, []);
+
+
+
+    // Function to fetch all books from the API
+    const fetchBooks = async () => {
+        try {
+            const response = await axios.get("http://localhost:3000/seller/books", {
+                withCredentials: true,
+            });
+            const books = response.data;
+            setBooksData(books);
+        } catch (error) {
+            console.error("Error fetching books:", error);
+        }
+    };
+
+    const fetchBookImages = async () => {
+        try {
+            const imagePromises = booksData.flatMap((seller) =>
+                seller.books.map(async (book) => {
+                    try {
+                        const response = await axios.get(
+                            `http://localhost:3000/seller/book/book_image/${book.Book_ID}`,
+                            { withCredentials: true, responseType: "arraybuffer" }
+                        );
+                        const imageBlob = new Blob([response.data], {
+                            type: response.headers["content-type"],
+                        });
+                        const imageUrl = URL.createObjectURL(imageBlob);
+
+                        setBookImages((prevImages) => ({
+                            ...prevImages,
+                            [book.Book_ID]: imageUrl,
+                        }));
+                    } catch (error) {
+                        console.error(
+                            `Error fetching image for book ${book.Book_ID}:`,
+                            error
+                        );
+                    }
+                })
+            );
+            await Promise.all(imagePromises);
+        } catch (error) {
+            console.error("Error fetching book images:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchBooks();
+    }, []);
+
+    useEffect(() => {
+        if (booksData.length > 0) {
+            fetchBookImages();
+        }
+    }, [booksData]);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -84,13 +121,18 @@ export default function Login() {
         }, 3000); // Example: 3 seconds
     };
 
-    const bookCard = ({name, imageSrc, price, ID}) =>  <div className="card card-compact w-96 bg-base-100 shadow-xl">
-        <figure><img src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
+
+    const bookCard = ({ book }) => <div className="card card-compact w-96 bg-base-100 shadow-xl bg-white">
+        <figure><img src={book.Book_Image} alt={book.Title} /></figure>
         <div className="card-body">
-            <h2 className="card-title">Shoes!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
+            <h2 className="card-title">{book.Title}</h2>
+            <p>{book.Book_ID}</p>
+            <p>{book.Author}</p>
+            <p>{book.ISBN}</p>
+            <p>{book.Condition}</p>
+            <p>{book.Price}</p>
             <div className="card-actions justify-end">
-                <button className="btn btn-primary">Buy Now</button>
+                <button className="btn btn-primary">Add to Cart</button>
             </div>
         </div>
     </div>
@@ -136,14 +178,23 @@ export default function Login() {
                                         Profile
                                     </a>
                                 </li>
-                                <li><a>Logout</a></li>
+                                <li><a onClick={()=>{
+                                    sessionStorage.removeItem("user")
+                                    router.push("/")
+                                }}>Logout</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div className="flex wrap items-center justify-center">
-
+                <div className="flex wrap items-center justify-center" style={{
+                    flexWrap: "wrap", rowGap: "1rem", columnGap: "1rem", marginTop: "1rem", marginBottom: "1rem"
+                }}>
+                    {booksData.map((seller) => (
+                        seller.books.map((book) => (
+                            bookCard({ book })
+                        ))
+                    ))}
                 </div>
 
             </div>

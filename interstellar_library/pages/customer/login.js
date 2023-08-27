@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../utils/authcontext";
 import LoadingModalDots from "../components/loading_modal/loading_modal_dots";
@@ -18,6 +18,14 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password1, setPassword1] = useState('');
 
+    useEffect(() => {
+        if (sessionStorage.getItem('user')) {
+            router.push({
+                pathname: '/customer/dashboard',
+            });
+        }
+    }, []);
+
     const onsubmit = (e) => {
         e.preventDefault();
         if (email.length > 100 || email.length < 5 || !email.includes('@') || !email.includes('.')) {
@@ -31,10 +39,8 @@ export default function Login() {
         }
         axios.post('http://localhost:3000/customer/login', { email, password: password1 })
             .then(res => {
-                console.log(res.data);
                 sessionStorage.setItem('user', JSON.stringify(res.data));
                 handleShow_Success_Toast("Login Successful");
-                login(Email, document.cookie);
                 setTimeout(() => {
                     router.push({
                         pathname: '/customer/dashboard',

@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../utils/authcontext";
 import LoadingModalDots from "../components/loading_modal/loading_modal_dots";
@@ -19,6 +19,14 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password1, setPassword1] = useState('');
     const [password2, setPassword2] = useState('');
+
+    useEffect(() => {
+        if (sessionStorage.getItem('user')) {
+            router.push({
+                pathname: '/customer/dashboard',
+            });
+        }
+    }, []);
 
     const onsubmit = (e) => {
         e.preventDefault();
