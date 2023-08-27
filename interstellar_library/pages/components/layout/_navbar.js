@@ -8,9 +8,20 @@ export default function _NavBar() {
     });
   };
 
+  const sendToModerator_Login = function () {
+    router.push({
+      pathname: "/moderator/login",
+    });
+  };
   const sendToSeller_Signup = function () {
     router.push({
       pathname: "/seller/signup",
+    });
+  };
+
+  const sendToModerator_Signup = function () {
+    router.push({
+      pathname: "/moderator/register",
     });
   };
 
@@ -45,6 +56,9 @@ export default function _NavBar() {
                   <li>
                     <a>Customer</a>
                   </li>
+                  <li onClick={sendToModerator_Signup }>
+                    <a>Moderator</a>
+                  </li>
                   <li onClick={sendToSeller_Signup}>
                     <a>Seller</a>
                   </li>
@@ -64,7 +78,7 @@ export default function _NavBar() {
                   <li onClick={sendToSeller_Login}>
                     <a>Seller</a>
                   </li>
-                  <li>
+                  <li onClick={sendToModerator_Login}>
                     <a>Moderator</a>
                   </li>
                   <li>
