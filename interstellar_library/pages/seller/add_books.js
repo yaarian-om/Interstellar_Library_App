@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 
@@ -19,9 +19,26 @@ export default function Add_Books() {
   const [Condition, setCondition] = useState("");
   const [Price, setPrice] = useState("");
   const [Book_Image, setBook_Image] = useState("temp.png");
-  const [Seller_ID, setSeller_ID] = useState(2); //TODO: Use Session Here for Seller ID
+  const [Seller_ID, setSeller_ID] = useState(2); 
+
+  const [Title_Error, setTitle_Error] = useState(''); 
+  const [Author_Error, setAuthor_Error] = useState(''); 
+  const [ISBN_Error, setISBN_Error] = useState(''); 
+  const [Condition_Error, setCondition_Error] = useState(''); 
+  const [Price_Error, setPrice_Error] = useState(''); 
+  const [selectedImage_Error, setSelectedImage_Error] = useState(''); 
 
   const [selectedImage, setSelectedImage] = useState(null); // To store the selected image file
+
+  const [isFormComplete, setIsFormComplete] = useState(false);
+  useEffect(
+    () =>
+      setIsFormComplete(
+        Title && Author && ISBN && Condition && Price && (selectedImage != null)
+      ),
+    [Title, Author, ISBN, Condition, Price, selectedImage]
+  );
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -33,63 +50,89 @@ export default function Add_Books() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    // formData.append('myfile', e.target.elements.myfile);
-    const fileInput = document.getElementById("myfile"); // Get the file input element
+    const isValidInteger = (str) => /^\d+$/.test(str); // Regular expression to check for valid integers
+    if (
+      (Title != "") &&
+      (Author != "") &&
+      isValidInteger(ISBN) &&
+      (Condition != "") &&
+      isValidInteger(Price) &&
+      selectedImage !== null
+    ) {
 
-    if (fileInput && fileInput.files.length > 0) {
-      formData.append("myfile", fileInput.files[0]);
-      const uploadedFileName = formData.get("myfile").name;
-      setBook_Image(uploadedFileName);
-      formData.append("Book_Image", uploadedFileName);
-      console.warn("Uploaded File Name:", uploadedFileName);
-    }
-    formData.append("Book_ID", Book_ID);
-    formData.append("Title", Title);
-    formData.append("Author", Author);
-    formData.append("ISBN", ISBN);
-    formData.append("Condition", Condition);
-    formData.append("Price", Price);
-    formData.append("seller", Seller_ID);
+      const formData = new FormData();
+      // formData.append('myfile', e.target.elements.myfile);
+      const fileInput = document.getElementById("myfile"); // Get the file input element
 
-    // const validateFile = (value) => {
-    //   const file = value[0];
-    //   const allowedtypes = ["image/jpg", "image/png"];
-
-    //   if (!allowedtypes.includes(file.type)){
-    //       return false;
-    //   }
-    //   }
-    console.log(formData); // Working
-
-    try {
-      console.log("Posting Data...");
-      const response = await axios.post(
-        "http://localhost:3000/seller/add_books",
-        formData,
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      console.log(response);
-
-      if (response.data) {
-        router.push({
-          pathname: "/seller/add_books",
-        });
-        window.location.reload(); // Reload the page
-      } else {
-        router.push({
-          pathname: "error",
-        });
+      if (fileInput && fileInput.files.length > 0) {
+        formData.append("myfile", fileInput.files[0]);
+        const uploadedFileName = formData.get("myfile").name;
+        setBook_Image(uploadedFileName);
+        formData.append("Book_Image", uploadedFileName);
+        console.warn("Uploaded File Name:", uploadedFileName);
       }
-    } catch (error) {
-      console.error("Error adding books:", error);
+      formData.append("Book_ID", Book_ID);
+      formData.append("Title", Title);
+      formData.append("Author", Author);
+      formData.append("ISBN", ISBN);
+      formData.append("Condition", Condition);
+      formData.append("Price", Price);
+      formData.append("seller", Seller_ID);
+
+      // const validateFile = (value) => {
+      //   const file = value[0];
+      //   const allowedtypes = ["image/jpg", "image/png"];
+
+      //   if (!allowedtypes.includes(file.type)){
+      //       return false;
+      //   }
+      //   }
+      console.log(formData); // Working
+
+      try {
+        console.log("Posting Data...");
+        const response = await axios.post(
+          "http://localhost:3000/seller/add_books",
+          formData,
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        console.log(response);
+
+        if (response.data) {
+          router.push({
+            pathname: "/seller/add_books",
+          });
+          window.location.reload(); // Reload the page
+        } else {
+          router.push({
+            pathname: "error",
+          });
+        }
+      } catch (error) {
+        console.error("Error adding books:", error);
+      }
+
+
+    }else if( Title == ""){
+      setTitle_Error("Book Title is Required !")
+    }else if( Author == ""){
+      setAuthor_Error("Author Name is Required !")
+    }else if( ISBN == ""){
+      setISBN_Error("Book ISBN is Required !")
+    }else if( Condition == ""){
+      setCondition_Error("Book Condition is Required !")
+    }else if( selectedImage == null){
+      setSelectedImage_Error("Book Image is required !")
+    }else if( Price == ""){
+      setPrice_Error("Book Price is Required !")
     }
+    
     // Page Reload here
   };
 
@@ -122,6 +165,12 @@ export default function Add_Books() {
                     onChange={(e) => setTitle(e.target.value)}
                     className="input input-bordered"
                   />
+                  <label className="label">
+                    {/* <span className="label-text-alt">Bottom Left label</span> */}
+                    <span className="label-text-alt text-red-600">
+                      {Title_Error}
+                    </span>
+                  </label>
                 </div>
 
                 <div className="form-control">
@@ -136,6 +185,12 @@ export default function Add_Books() {
                     onChange={(e) => setAuthor(e.target.value)}
                     className="input input-bordered"
                   />
+                   <label className="label">
+                    {/* <span className="label-text-alt">Bottom Left label</span> */}
+                    <span className="label-text-alt text-red-600">
+                      {Author_Error}
+                    </span>
+                  </label>
                 </div>
 
                 <div className="form-control">
@@ -150,6 +205,12 @@ export default function Add_Books() {
                     onChange={(e) => setISBN(e.target.value)}
                     className="input input-bordered"
                   />
+                   <label className="label">
+                    {/* <span className="label-text-alt">Bottom Left label</span> */}
+                    <span className="label-text-alt text-red-600">
+                      {ISBN_Error}
+                    </span>
+                  </label>
                 </div>
 
                 <div className="form-control">
@@ -164,6 +225,12 @@ export default function Add_Books() {
                     onChange={(e) => setCondition(e.target.value)}
                     className="input input-bordered"
                   />
+                   <label className="label">
+                    {/* <span className="label-text-alt">Bottom Left label</span> */}
+                    <span className="label-text-alt text-red-600">
+                      {Condition_Error}
+                    </span>
+                  </label>
                 </div>
               </div>
 
@@ -184,6 +251,12 @@ export default function Add_Books() {
                     id="myfile"
                     onChange={handleImageChange}
                   />
+                   <label className="label">
+                    {/* <span className="label-text-alt">Bottom Left label</span> */}
+                    <span className="label-text-alt text-red-600">
+                      {selectedImage_Error}
+                    </span>
+                  </label>
                 </div>
 
                 <div className="form-control">
@@ -198,12 +271,19 @@ export default function Add_Books() {
                     onChange={(e) => setPrice(e.target.value)}
                     className="input input-bordered"
                   />
+                   <label className="label">
+                    {/* <span className="label-text-alt">Bottom Left label</span> */}
+                    <span className="label-text-alt text-red-600">
+                      {Price_Error}
+                    </span>
+                  </label>
                 </div>
 
                 <div className="text-center">
                   <input
                     className="btn btn-outline btn-success rounded-2xl"
                     type="submit"
+                    disabled={!isFormComplete} // Disable the button when the form is incomplete
                     value="Add Book"
                   />
                 </div>

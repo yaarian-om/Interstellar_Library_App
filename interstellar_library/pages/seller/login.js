@@ -31,16 +31,32 @@ export default function Login() {
   const [toastMessage, setToastMessage] = useState('');
   const [toastMessage_failed, setToastMessage_failed] = useState('');
 
+  const [Email_Error, setEmail_Error] = useState('');
+  const [Password_Error, setPassword_Error] = useState('');
 
+
+  
   
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const isValidPassword = (str) =>
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[0-9a-zA-Z!@#$%^&*()_+]{8,}$/.test(
+        str
+      );
+
     if (!Email || !Password) {
       // setError("Email and password are required");
     } else if (!isValidEmail(Email)) {
+      setEmail_Error("Email is required in the correct format")
+      console.info("Error = "+Email_Error);
+    } else if (!isValidPassword(Password)) {
+      setPassword_Error(
+        "Password must have at least 1 uppercase, 1 lowercase, 1 digit, 1 special character, and be 8+ characters long"
+      );
       // setError("Invalid email address");
+      console.info("Error = "+Password_Error);
     } else {
       try{
         const data = await axios.post(
@@ -286,7 +302,7 @@ export default function Login() {
                     <label className="label">
                       {/* <span className="label-text-alt">Bottom Left label</span> */}
                       <span className="label-text-alt text-red-600">
-                        Bottom Right label
+                        {Email_Error}
                       </span>
                     </label>
                   </div>
@@ -308,7 +324,7 @@ export default function Login() {
                     <label className="label">
                       {/* <span className="label-text-alt">Bottom Left label</span> */}
                       <span className="label-text-alt text-red-600">
-                        Bottom Right label
+                        {Password_Error}
                       </span>
                     </label>
                   </div>
