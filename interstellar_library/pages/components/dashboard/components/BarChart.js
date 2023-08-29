@@ -21,7 +21,7 @@ function BarChart(){
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/seller/income_stats", {
+      .get(process.env.NEXT_PUBLIC_API_ENDPOINT + "seller/income_stats", {
         withCredentials: true,
       })
       .then((response) => {

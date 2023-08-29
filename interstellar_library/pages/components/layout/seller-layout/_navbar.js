@@ -79,7 +79,7 @@ export default function _NavBar() {
       try {
         console.info("Sending request...");
         const response = await axios.get(
-          `http://localhost:3000/seller/book/search?criteria=${criteria}&value=${newValue}`,{
+          process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/book/search?criteria=${criteria}&value=${newValue}",{
             withCredentials:true
           }
         );
@@ -124,7 +124,7 @@ export default function _NavBar() {
 
     if(feedback != ""){
       const response = await axios.post(
-      "http://localhost:3000/seller/feedbacks/send_feedback",
+      process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/feedbacks/send_feedback",
       {
         Feedback_ID : Feedback_ID,
         Comment : feedback,
@@ -169,7 +169,7 @@ export default function _NavBar() {
   useEffect(() => {
     const intervalId = setInterval(async () => {
       try {
-        const response = await axios.get("http://localhost:3000/seller/index", {
+        const response = await axios.get(process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/index", {
           withCredentials: true,
         });
         const sessionData = response.data; // Assuming the session data is a string
@@ -195,7 +195,7 @@ export default function _NavBar() {
       //  Fetch The Data
 
       axios
-        .get("http://localhost:3000/seller/profile/profile_image", {
+        .get(process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/profile/profile_image", {
           responseType: "arraybuffer", // Indicate that we're expecting binary data
           withCredentials: true,
         })

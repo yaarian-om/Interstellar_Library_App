@@ -60,7 +60,7 @@ export default function Login() {
     } else {
       try{
         const data = await axios.post(
-        "http://localhost:3000/seller/login",
+        process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/login",
         { Email, Password },
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -136,7 +136,7 @@ export default function Login() {
         setIsLoading(true);
         console.info("New Mail = "+forget_Email);
         const data = await axios.post(
-        "http://localhost:3000/seller/forget_password",
+        process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/forget_password",
           {Email: forget_Email}
         );
         if (data.data){
@@ -176,7 +176,7 @@ export default function Login() {
         setIsLoading(true);
         console.info("OTP = " + otp);
         const data = await axios.post(
-          "http://localhost:3000/seller/forget_password/send_pin",
+          process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/forget_password/send_pin",
           { Pin_Code: otp }
         );
         if (data.data){
@@ -209,7 +209,7 @@ export default function Login() {
         console.info("New Password = " + new_Password);
         console.info("New Mail = " + user.email);
         const data = await axios.put(
-          "http://localhost:3000/seller/forget_password/update_password",
+          process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/forget_password/update_password",
           { 
             Email : user.email,
             Password: new_Password 

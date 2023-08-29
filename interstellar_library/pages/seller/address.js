@@ -32,7 +32,7 @@ export default function Address() {
   const fetchSellerAddress = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/seller/profile/address",
+        process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/profile/address",
         { withCredentials: true }
       );
       if (response.data) {
@@ -107,7 +107,7 @@ export default function Address() {
       try {
         console.log("Updating Address... ")
       const response = await axios.put(
-        "http://localhost:3000/seller/profile/update_profile_info/update_address",
+        process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/profile/update_profile_info/update_address",
         {
           Address_ID: Address_ID,
           Street: Street,

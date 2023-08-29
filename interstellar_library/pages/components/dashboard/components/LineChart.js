@@ -32,7 +32,7 @@ function LineChart() {
   useEffect(() => {
     // Fetch data using Axios
     axios
-      .get("http://localhost:3000/seller/orders_stats", {
+      .get(process.env.NEXT_PUBLIC_API_ENDPOINT + "seller/orders_stats", {
         withCredentials: true,
       })
       .then((response) => {

@@ -27,7 +27,7 @@ export default function All_Books() {
   const fetchBooks = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/seller/orders/view_all_orders",
+        process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/orders/view_all_orders",
         {
           withCredentials: true,
         }
@@ -52,7 +52,7 @@ export default function All_Books() {
       if (selectedOrderId) {
         // console.warn("Your Selected Book ID for Delete = "+selectedOrderId); // Working
         const res = await axios.get(
-          `http://localhost:3000/seller/orders/cancel/${selectedOrderId}`
+          process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/orders/cancel/${selectedOrderId}"
         );
         console.log("Cancelled Or Not? = " + res);
         // You might want to refresh the book list after deletion
@@ -73,7 +73,7 @@ export default function All_Books() {
       if (selectedOrderId) {
         // console.warn("Your Selected Book ID for Delete = "+selectedOrderId); // Working
         const res = await axios.get(
-          `http://localhost:3000/seller/orders/deliver/${selectedOrderId}`,
+          process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/orders/deliver/${selectedOrderId}",
           {
             withCredentials: true,
           }

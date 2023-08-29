@@ -88,7 +88,7 @@ export default function Profile() {
 
   const fetchSellerData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/seller/profile`, {
+      const response = await axios.get(process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/profile", {
         withCredentials: true,
       });
       if (response != null || response != undefined) {
@@ -103,7 +103,7 @@ export default function Profile() {
   const fetchProfileImage = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/seller/profile/profile_image`,
+        process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/profile/profile_image",
         {
           responseType: "arraybuffer",
           withCredentials: true,
@@ -135,7 +135,7 @@ export default function Profile() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        "http://localhost:3000/seller/profile/update_profile_info",
+        process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/profile/update_profile_info",
         {
           Seller_ID: Seller_ID,
           Name: Name,
@@ -172,7 +172,7 @@ export default function Profile() {
     }
     try {
       const response = await axios.put(
-        "http://localhost:3000/seller/profile/update_profile_info/upload_profile_image",
+        process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/profile/update_profile_info/upload_profile_image",
         formData,
         {
           withCredentials: true,
