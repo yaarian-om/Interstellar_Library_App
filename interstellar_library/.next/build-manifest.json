@@ -27,25 +27,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/seller/add_books.js"
     ],
-    "/seller/dashboard": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/seller/dashboard.js"
-    ],
     "/seller/login": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/seller/login.js"
-    ],
-    "/seller/logout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/seller/logout.js"
-    ],
-    "/seller/profile": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/seller/profile.js"
     ]
   },
   "ampFirstPages": []

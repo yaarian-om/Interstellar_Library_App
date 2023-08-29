@@ -86,7 +86,7 @@ export default function View_Single_Book() {
   const fetchBookData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/seller/books/search_books/" + router.query.id,
+        process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/books/search_books/" + router.query.id,
         { withCredentials: true }
       );
       const data = response.data;
@@ -133,7 +133,7 @@ export default function View_Single_Book() {
       console.log("Posting Data...");
 
       const response = await axios.put(
-        "http://localhost:3000/seller/books/update_book_info/" + Book_ID,
+        process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/books/update_book_info/" + Book_ID,
         {
           Book_ID: Book_ID,
           Title: Title,
@@ -174,7 +174,7 @@ export default function View_Single_Book() {
   const fetchBookImage = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/seller/book/book_image/` + router.query.id,
+        process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/book/book_image/" + router.query.id,
         {
           responseType: "arraybuffer",
           withCredentials: true,

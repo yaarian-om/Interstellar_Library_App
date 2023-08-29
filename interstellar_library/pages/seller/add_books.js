@@ -92,7 +92,7 @@ export default function Add_Books() {
       try {
         console.log("Posting Data...");
         const response = await axios.post(
-          "http://localhost:3000/seller/add_books",
+          process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/add_books",
           formData,
           {
             withCredentials: true,

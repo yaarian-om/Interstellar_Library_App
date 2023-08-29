@@ -13,7 +13,7 @@ function Dashboard() {
   const fetchCurrentIncome = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/seller/monthly_income",
+        process.env.NEXT_PUBLIC_API_ENDPOINT + "seller/monthly_income",
         {
           withCredentials: true,
         }
@@ -30,7 +30,7 @@ function Dashboard() {
   const fetchPendingDelivery = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/seller/monthly_pending_orders",
+        process.env.NEXT_PUBLIC_API_ENDPOINT + "seller/monthly_pending_orders",
         {
           withCredentials: true,
         }

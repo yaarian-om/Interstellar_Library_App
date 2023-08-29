@@ -26,7 +26,7 @@ const [booksData, setBooksData] = useState([]); // State to store fetched books
 // Function to fetch all books from the API
 const fetchBooks = async () => {
   try {
-    const response = await axios.get("http://localhost:3000/seller/books", {
+    const response = await axios.get(process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/books", {
       withCredentials: true,
     });
     const books = response.data;
@@ -42,7 +42,7 @@ const fetchBookImages = async () => {
       seller.books.map(async (book) => {
         try {
           const response = await axios.get(
-            `http://localhost:3000/seller/book/book_image/${book.Book_ID}`,
+            process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/book/book_image/${book.Book_ID}",
             { withCredentials: true, responseType: "arraybuffer" }
           );
           const imageBlob = new Blob([response.data], {
@@ -85,7 +85,7 @@ useEffect(() => {
       if (selectedBookId) {
         // console.warn("Your Selected Book ID for Delete = "+selectedBookId); // Working
         const res = await axios.delete(
-          `http://localhost:3000/seller/books/delete_books/${selectedBookId}`
+          process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/books/delete_books/${selectedBookId}"
         );
         console.log("Deleted Or Not? = " + res);
         // You might want to refresh the book list after deletion
@@ -105,7 +105,7 @@ useEffect(() => {
       if (selectedBookId) {
         // console.warn("Your Selected Book ID for Delete = "+selectedBookId); // Working
         const res = await axios.get(
-          `http://localhost:3000/seller/books/search_books/${selectedBookId}`
+          process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/books/search_books/${selectedBookId}"
         );
         console.log("Deleted Or Not? = " + res);
         // You might want to refresh the book list after deletion

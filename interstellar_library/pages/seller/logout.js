@@ -24,7 +24,7 @@ export default function  Logout() {
     // e.preventDefault();
     try {
         const response = await axios.post(
-          "http://localhost:3000/seller/logout",
+          process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/logout",
           {
             withCredentials: true,
           }

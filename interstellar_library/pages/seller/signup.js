@@ -75,7 +75,7 @@ export default function Login() {
     } else {
       try {
         const data = await axios.post(
-          "http://localhost:3000/seller/signup",
+          process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/signup",
           {
             Seller_ID: Seller_ID,
             Name: Name,
