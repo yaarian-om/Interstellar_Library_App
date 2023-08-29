@@ -3,7 +3,8 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/seller/login": "pages/seller/login.js",
-  "/seller/signup": "pages/seller/signup.js",
-  "/": "pages/index.js",
-  "/seller/dashboard": "pages/seller/dashboard.js"
+  "/seller/add_books": "pages/seller/add_books.js",
+  "/seller/dashboard": "pages/seller/dashboard.js",
+  "/seller/profile": "pages/seller/profile.js",
+  "/seller/logout": "pages/seller/logout.js"
 }
