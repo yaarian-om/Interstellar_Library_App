@@ -22,11 +22,6 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/seller/address": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/seller/address.js"
-    ],
     "/seller/dashboard": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
@@ -36,16 +31,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/seller/login.js"
-    ],
-    "/seller/profile": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/seller/profile.js"
-    ],
-    "/seller/signup": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/seller/signup.js"
     ]
   },
   "ampFirstPages": []
