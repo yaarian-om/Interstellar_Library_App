@@ -74,6 +74,7 @@ export default function Login() {
       setPhone_Error("Phone number should be between 10 and 20 digits");
     } else {
       try {
+        setIsLoading(true);
         const data = await axios.post(
           process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/signup",
           {
@@ -93,14 +94,17 @@ export default function Login() {
         if (data.data) {
           login(Email, document.cookie);
           console.log(data.data);
+          setIsLoading(false);
           router.push({
             pathname: "/seller/login",
           });
         } else {
+          setIsLoading(false);
           handleShow_Failed_Toast("Signup failed");
         }
         console.log(data);
       } catch (error) {
+        setIsLoading(false);
         router.push({
           pathname: "/seller/signup",
         });

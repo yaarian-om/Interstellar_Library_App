@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
+import LoadingModalDots from './../components/loading_modal/loading_modal_dots';
 // Dynamic Imports
 const _Layout = dynamic(() =>
   import("../components/layout/seller-layout/seller_layout")
@@ -16,6 +17,8 @@ export default function All_Books() {
   const [selectedOrderId, setselectedOrderId] = useState(null);
   const [selectedOrderIdForDeliver, setselectedOrderIdForDeliver] =
     useState(null);
+    
+    const [isLoading, setIsLoading] = useState(false);
 
   const set_selectedOrderId = (data) => {
     setselectedOrderId(data);
@@ -26,6 +29,7 @@ export default function All_Books() {
   // Function to fetch all books from the API
   const fetchBooks = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/orders/view_all_orders",
         {
@@ -34,7 +38,9 @@ export default function All_Books() {
       );
       const orders = response.data;
       setOrdersData(orders);
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.error("Error fetching books:", error);
     }
   };
@@ -51,6 +57,7 @@ export default function All_Books() {
     try {
       if (selectedOrderId) {
         // console.warn("Your Selected Book ID for Delete = "+selectedOrderId); // Working
+        setIsLoading(true);
         const res = await axios.get(
           process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/orders/cancel/${selectedOrderId}"
         );
@@ -60,8 +67,10 @@ export default function All_Books() {
         // fetchBookImages();
         setselectedOrderId(null); // Reset selected book ID
         window.location.reload(); // Reload the page
+        setIsLoading(false);
       }
     } catch (error) {
+      setIsLoading(false);
       console.error("Error deleting book:", error);
     }
   };
@@ -71,6 +80,7 @@ export default function All_Books() {
   const handleDeliver = async () => {
     try {
       if (selectedOrderId) {
+        setIsLoading(trouble);
         // console.warn("Your Selected Book ID for Delete = "+selectedOrderId); // Working
         const res = await axios.get(
           process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/orders/deliver/${selectedOrderId}",
@@ -84,8 +94,10 @@ export default function All_Books() {
         // fetchBookImages();
         setselectedOrderId(null); // Reset selected book ID
         window.location.reload(); // Reload the page
+        setIsLoading(false);
       }
     } catch (error) {
+      setIsLoading(false);
       console.error("Error deleting book:", error);
     }
   };
@@ -215,6 +227,7 @@ export default function All_Books() {
           </div>
         </form>
       </dialog>
+      {isLoading && <LoadingModalDots />}
     </>
   );
 }

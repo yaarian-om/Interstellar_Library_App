@@ -4,6 +4,7 @@ import {useRouter} from 'next/router';
 import { useEffect,useState } from 'react';
 import { useAuth } from "../utils/authcontext";
 
+import LoadingModalDots from './../components/loading_modal/loading_modal_dots';
 
 export default function  Logout() {
 

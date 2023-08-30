@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
+import LoadingModalDots from './../components/loading_modal/loading_modal_dots';
+
 // Dynamic Imports
 const _Layout = dynamic(() =>
   import("../components/layout/seller-layout/seller_layout")
@@ -13,6 +15,9 @@ export default function All_Books() {
   const router = useRouter();
 
   const [bookImages, setBookImages] = useState({});
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const [selectedBookId, setSelectedBookId] = useState(null);
   const [selectedBookIdForEdit, setSelectedBookIdForEdit] = useState(null);
 
@@ -26,12 +31,15 @@ const [booksData, setBooksData] = useState([]); // State to store fetched books
 // Function to fetch all books from the API
 const fetchBooks = async () => {
   try {
+    setIsLoading(true);
     const response = await axios.get(process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/books", {
       withCredentials: true,
     });
     const books = response.data;
+    setIsLoading(false);
     setBooksData(books);
   } catch (error) {
+    setIsLoading(false);
     console.error("Error fetching books:", error);
   }
 };
@@ -41,6 +49,7 @@ const fetchBookImages = async () => {
     const imagePromises = booksData.flatMap((seller) =>
       seller.books.map(async (book) => {
         try {
+          setIsLoading(true);
           const response = await axios.get(
             process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/book/book_image/${book.Book_ID}",
             { withCredentials: true, responseType: "arraybuffer" }
@@ -54,7 +63,9 @@ const fetchBookImages = async () => {
             ...prevImages,
             [book.Book_ID]: imageUrl,
           }));
+          setIsLoading(false);
         } catch (error) {
+          setIsLoading(false);
           console.error(
             `Error fetching image for book ${book.Book_ID}:`,
             error
@@ -83,6 +94,7 @@ useEffect(() => {
   const handleDelete = async () => {
     try {
       if (selectedBookId) {
+        setIsLoading(true);
         // console.warn("Your Selected Book ID for Delete = "+selectedBookId); // Working
         const res = await axios.delete(
           process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/books/delete_books/${selectedBookId}"
@@ -93,8 +105,10 @@ useEffect(() => {
         // fetchBookImages();
         setSelectedBookId(null); // Reset selected book ID
         window.location.reload(); // Reload the page
+        setIsLoading(false);
       }
     } catch (error) {
+      setIsLoading(false);
       console.error("Error deleting book:", error);
     }
   };
@@ -104,6 +118,7 @@ useEffect(() => {
     try {
       if (selectedBookId) {
         // console.warn("Your Selected Book ID for Delete = "+selectedBookId); // Working
+        setIsLoading(true);
         const res = await axios.get(
           process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/books/search_books/${selectedBookId}"
         );
@@ -112,8 +127,10 @@ useEffect(() => {
         // You can call fetchBookImages() again or refetch data here
         // fetchBookImages();
         setSelectedBookId(null); // Reset selected book ID
+        setIsLoading(false);
       }
     } catch (error) {
+      setIsLoading(false);
       console.error("Error deleting book:", error);
     }
   };
@@ -225,6 +242,7 @@ useEffect(() => {
           </div>
         </form>
       </dialog>
+      {isLoading && <LoadingModalDots />}
     </>
   );
 }

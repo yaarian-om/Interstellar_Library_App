@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 
+import LoadingModalDots from './../components/loading_modal/loading_modal_dots';
+
+
 // Dynamic Imports
 const _Layout = dynamic(() =>
   import("../components/layout/seller-layout/seller_layout")
@@ -29,6 +32,8 @@ export default function Add_Books() {
   const [selectedImage_Error, setSelectedImage_Error] = useState(''); 
 
   const [selectedImage, setSelectedImage] = useState(null); // To store the selected image file
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [isFormComplete, setIsFormComplete] = useState(false);
   useEffect(
@@ -91,6 +96,7 @@ export default function Add_Books() {
 
       try {
         console.log("Posting Data...");
+        setIsLoading(true);
         const response = await axios.post(
           process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/add_books",
           formData,
@@ -105,16 +111,19 @@ export default function Add_Books() {
         console.log(response);
 
         if (response.data) {
+          setIsLoading(false);
           router.push({
             pathname: "/seller/add_books",
           });
           window.location.reload(); // Reload the page
         } else {
+          setIsLoading(false);
           router.push({
             pathname: "error",
           });
         }
       } catch (error) {
+        setIsLoading(false);
         console.error("Error adding books:", error);
       }
 
@@ -185,7 +194,7 @@ export default function Add_Books() {
                     onChange={(e) => setAuthor(e.target.value)}
                     className="input input-bordered"
                   />
-                   <label className="label">
+                  <label className="label">
                     {/* <span className="label-text-alt">Bottom Left label</span> */}
                     <span className="label-text-alt text-red-600">
                       {Author_Error}
@@ -205,7 +214,7 @@ export default function Add_Books() {
                     onChange={(e) => setISBN(e.target.value)}
                     className="input input-bordered"
                   />
-                   <label className="label">
+                  <label className="label">
                     {/* <span className="label-text-alt">Bottom Left label</span> */}
                     <span className="label-text-alt text-red-600">
                       {ISBN_Error}
@@ -225,7 +234,7 @@ export default function Add_Books() {
                     onChange={(e) => setCondition(e.target.value)}
                     className="input input-bordered"
                   />
-                   <label className="label">
+                  <label className="label">
                     {/* <span className="label-text-alt">Bottom Left label</span> */}
                     <span className="label-text-alt text-red-600">
                       {Condition_Error}
@@ -251,7 +260,7 @@ export default function Add_Books() {
                     id="myfile"
                     onChange={handleImageChange}
                   />
-                   <label className="label">
+                  <label className="label">
                     {/* <span className="label-text-alt">Bottom Left label</span> */}
                     <span className="label-text-alt text-red-600">
                       {selectedImage_Error}
@@ -271,7 +280,7 @@ export default function Add_Books() {
                     onChange={(e) => setPrice(e.target.value)}
                     className="input input-bordered"
                   />
-                   <label className="label">
+                  <label className="label">
                     {/* <span className="label-text-alt">Bottom Left label</span> */}
                     <span className="label-text-alt text-red-600">
                       {Price_Error}
@@ -300,6 +309,8 @@ export default function Add_Books() {
           </form>
         </div>
       </_Layout>
+
+      {isLoading && <LoadingModalDots />}
     </>
   );
 }

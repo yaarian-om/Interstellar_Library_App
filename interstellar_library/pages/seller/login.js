@@ -59,6 +59,7 @@ export default function Login() {
       console.info("Error = "+Password_Error);
     } else {
       try{
+        setIsLoading(true);
         const data = await axios.post(
         process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/login",
         { Email, Password },
@@ -74,12 +75,14 @@ export default function Login() {
         router.push({
           pathname: "/seller/dashboard",
         });
+        setIsLoading(false);
       } else {
-        
+        setIsLoading(false);
         handleShow_Failed_Toast("Login failed");
       }
       console.log(data);
       }catch(error){
+        setIsLoading(false);
         router.push({
           pathname: "/seller/login",
         });
@@ -151,7 +154,7 @@ export default function Login() {
           // login(forget_Email, document.cookie.split(";")[1].trim());
           handleShow_Success_Toast("OTP Sent !");
            window.OTP_modal.showModal();
-
+          setIsLoading(false);
         }else{
           setIsLoading(false);
           handleShow_Failed_Toast("Failed to sent OTP");

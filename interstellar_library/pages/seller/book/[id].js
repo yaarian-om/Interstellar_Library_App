@@ -5,6 +5,9 @@ import axios from "axios";
 import Image from "next/image";
 import { DEFAULT_SANS_SERIF_FONT } from "next/dist/shared/lib/constants";
 
+import LoadingModalDots from "./../../components/loading_modal/loading_modal_dots";
+
+
 // Dynamic Imports
 const _Layout = dynamic(() =>
   import("../../components/layout/seller-layout/seller_layout")
@@ -28,6 +31,8 @@ export default function View_Single_Book() {
   const [selectedImage, setSelectedImage] = useState(null); // To store the selected image file
   const [CollectedBookData, setCollectedBookData] = useState(null);
   const [isFormComplete, setIsFormComplete] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   console.warn("ID line(30)= " + router.query.id); // Working
 
@@ -85,19 +90,22 @@ export default function View_Single_Book() {
 
   const fetchBookData = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/books/search_books/" + router.query.id,
         { withCredentials: true }
       );
       const data = response.data;
       console.log("Fetched Book Data:", data);
-
+      
       // Update the CollectedBookData state
       if (data != null) {
         setCollectedBookData(data);
         setBook_Image(data.Book_Image);
+        setIsLoading(false);
       }
     } catch (error) {
+      setIsLoading(false);
       console.error("Error fetching book data:", error);
     }
   };
@@ -132,6 +140,7 @@ export default function View_Single_Book() {
     try {
       console.log("Posting Data...");
 
+      setIsLoading(true);
       const response = await axios.put(
         process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/books/update_book_info/" + Book_ID,
         {
@@ -160,7 +169,9 @@ export default function View_Single_Book() {
         router.push({
           pathname: "/seller/book/" + router.query.id,
         });
+        setIsLoading(false);
       } else {
+        setIsLoading(false);
         console.info("Failed to Update");
         router.push({
           pathname: "error",
@@ -173,6 +184,7 @@ export default function View_Single_Book() {
 
   const fetchBookImage = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/book/book_image/" + router.query.id,
         {
@@ -186,7 +198,9 @@ export default function View_Single_Book() {
       });
       const imageUrl = URL.createObjectURL(imageBlob);
       setSelectedImage(imageUrl);
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.error("Error fetching profile image:", error);
     }
   };
@@ -339,6 +353,7 @@ export default function View_Single_Book() {
           </form>
         </div>
       </_Layout>
+      {isLoading && <LoadingModalDots />}
     </>
   );
 }

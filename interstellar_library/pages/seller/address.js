@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 
+import LoadingModalDots from './../components/loading_modal/loading_modal_dots';
+
 // Dynamic Imports
 const _Layout = dynamic(() =>
   import("../components/layout/seller-layout/seller_layout")
@@ -26,21 +28,26 @@ export default function Address() {
 
   const [Seller_Address, setSeller_Address] = useState(null);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [isFormComplete, setIsFormComplete] = useState(false);
 
 
   const fetchSellerAddress = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/profile/address",
         { withCredentials: true }
       );
       if (response.data) {
+        setIsLoading(false);
         setSeller_Address(response.data[0]); // Update the state with the fetched data
         console.info("Seller_Address response.data[0] = ", response.data[0]);
 
       }
     } catch (error) {
+      setIsLoading(false);
       console.error("Error fetching Seller Address:", error);
     }
   };
@@ -106,6 +113,7 @@ export default function Address() {
     if (isFormComplete) {
       try {
         console.log("Updating Address... ")
+        setIsLoading(true);
       const response = await axios.put(
         process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/profile/update_profile_info/update_address",
         {
@@ -122,11 +130,13 @@ export default function Address() {
       );
       if (response.data) {
         console.log(response.data);
+        setIsLoading(false);
         router.push({
           pathname: "/seller/address",
         });
       }
     } catch (error) {
+        setIsLoading(false);
         console.error("Error updating Address:", error);
       }
     }
@@ -244,6 +254,7 @@ export default function Address() {
 
         <_Profile_Navigation />
       </_Layout>
+      {isLoading && <LoadingModalDots />}
     </>
   );
 }
