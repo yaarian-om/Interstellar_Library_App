@@ -1,6 +1,4 @@
 # Node.js
-/node_modules/
-!node_modules/**/
 
 # Exclude specific large file
 next-swc.win32-x64-msvc.node
