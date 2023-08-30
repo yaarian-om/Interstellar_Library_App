@@ -2,7 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/seller/add_books": "pages/seller/add_books.js",
+  "/seller/profile": "pages/seller/profile.js",
+  "/seller/login": "pages/seller/login.js",
   "/seller/dashboard": "pages/seller/dashboard.js",
-  "/seller/login": "pages/seller/login.js"
+  "/seller/signup": "pages/seller/signup.js",
+  "/seller/address": "pages/seller/address.js"
 }

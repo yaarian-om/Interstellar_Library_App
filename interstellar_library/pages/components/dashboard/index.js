@@ -5,13 +5,17 @@ import CreditCardIcon from "@heroicons/react/24/outline/CreditCardIcon";
 import CircleStackIcon from "@heroicons/react/24/outline/CircleStackIcon";
 import LineChart from "./components/LineChart";
 import BarChart from "./components/BarChart";
+import LoadingModalDots from './../loading_modal/loading_modal_dots';
 
 function Dashboard() {
   const [current_Income, setCurrent_Income] = useState(0);
   const [pending_delivery, setPending_delivery] = useState(0);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const fetchCurrentIncome = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         process.env.NEXT_PUBLIC_API_ENDPOINT + "seller/monthly_income",
         {
@@ -19,10 +23,11 @@ function Dashboard() {
         }
       );
       const income = response.data;
-
+      setIsLoading(false);
       console.warn("Income response.data = " + income);
       setCurrent_Income(income); // Update the state with the fetched value
     } catch (error) {
+      setIsLoading(false);
       console.error("Error fetching Current Income:", error);
     }
   };
@@ -74,6 +79,7 @@ function Dashboard() {
         <LineChart />
         <BarChart />
       </div>
+      {isLoading && <LoadingModalDots />}
     </>
   );
 }

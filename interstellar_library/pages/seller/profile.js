@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 
+import LoadingModalDots from "./../components/loading_modal/loading_modal_dots";
+
 // Dynamic Imports
 const _Layout = dynamic(() =>
   import("../components/layout/seller-layout/seller_layout")
@@ -37,6 +39,8 @@ export default function Profile() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [isImageSelected, setIsImageSelected] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [isFormComplete, setIsFormComplete] = useState(false);
 
@@ -88,20 +92,24 @@ export default function Profile() {
 
   const fetchSellerData = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/profile", {
         withCredentials: true,
       });
       if (response != null || response != undefined) {
         setSeller_Data(response.data);
         console.info("Seller Data = " + response);
+        setIsLoading(false);
       }
     } catch (error) {
+      setIsLoading(false);
       console.error("Error fetching Seller Profile:", error);
     }
   };
 
   const fetchProfileImage = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/profile/profile_image",
         {
@@ -115,7 +123,9 @@ export default function Profile() {
       });
       const imageUrl = URL.createObjectURL(imageBlob);
       setSelectedImage(imageUrl);
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       console.error("Error fetching profile image:", error);
     }
   };
@@ -134,6 +144,7 @@ export default function Profile() {
   const handleSubmit_UserData = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const response = await axios.put(
         process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/profile/update_profile_info",
         {
@@ -153,9 +164,11 @@ export default function Profile() {
       );
       if (response.data) {
         console.log("Profile updated successfully:", response.data);
+        setIsLoading(false);
         router.push("/seller/profile");
       }
     } catch (error) {
+      setIsLoading(false);
       console.error("Error updating profile :");
       console.info("Data I have sent :", error.response.data);
       console.info("Response I Got :", error.response.data.message);
@@ -171,6 +184,7 @@ export default function Profile() {
       console.warn("Image = " + imageFile);
     }
     try {
+      setIsLoading(true);
       const response = await axios.put(
         process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/profile/update_profile_info/upload_profile_image",
         formData,
@@ -181,8 +195,10 @@ export default function Profile() {
           },
         }
       );
+      setIsLoading(false);
       console.log(response);
     } catch (error) {
+      setIsLoading(false);
       console.error("Data I have sent :", error.response.data);
       console.error("Response Message I Got :", error.response.data.message);
       console.error("Response Error Called :", error.response.data.error);
@@ -296,6 +312,7 @@ export default function Profile() {
         {/* Bottom Profile Navigation Here */}
         <_Profile_Navigation />
       </_Layout>
+      {isLoading && <LoadingModalDots />}
     </>
   );
 }
