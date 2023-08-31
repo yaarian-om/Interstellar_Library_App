@@ -1,2 +1,8 @@
-node_modules/
-FRONTEND_LINK.txt
+# Ignore all files and folders starting with node_modules
+node_modules/**
+
+# Ignore all log files
+*.log
+
+# Ignore all temporary files
+*.tmp
