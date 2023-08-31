@@ -34,10 +34,13 @@ export const AuthProvider = ({ children }) => {
   };
   async function doSignOut() {
     try {
-      const response = await axios.post(process.env.NEXT_PUBLIC_API_ENDPOINT+"seller/logout", {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        process.env.NEXT_PUBLIC_API_ENDPOINT + "seller/logout",
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          withCredentials: true,
+        }
+      );
       console.log(response);
       localStorage.removeItem("authUser");
       setUser(null);
@@ -55,4 +58,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export default useAuth;
