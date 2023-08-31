@@ -1,4 +1,8 @@
-# Node.js
+# Ignore all files and folders starting with node_modules
+node_modules/**
 
-# Exclude specific large file
-next-swc.win32-x64-msvc.node
+# Ignore all log files
+*.log
+
+# Ignore all temporary files
+*.tmp
