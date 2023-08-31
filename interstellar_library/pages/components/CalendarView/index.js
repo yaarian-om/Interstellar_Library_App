@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import  ChevronLeftIcon from "@heroicons/react/24/solid/ChevronLeftIcon";
 import  ChevronRightIcon  from "@heroicons/react/24/solid/ChevronRightIcon";
-import moment from "moment";
+// import moment from "moment";
 import { CALENDAR_EVENT_STYLE } from "./util";
 
 const THEME_BG = CALENDAR_EVENT_STYLE
