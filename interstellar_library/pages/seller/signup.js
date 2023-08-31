@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import axios from "axios";
-import { useAuth } from "../utils/authcontext";
+import { useAuth } from "../../utils/authcontext";
 import LoadingModalDots from "../components/loading_modal/loading_modal_dots";
 import Toast_Success from "../components/toast/toast_success";
 import Toast_Failed from "../components/toast/toast_failed";
